@@ -28,13 +28,25 @@
 
   /* NAV */
   nav { background: var(--green); color: white; padding: 0 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-  .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; }
-  .nav-inner::-webkit-scrollbar { display: none; }
-  .nav-logo { font-size: 18px; font-weight: 800; padding: 16px 16px 16px 0; white-space: nowrap; margin-right: 8px; border-right: 1px solid rgba(255,255,255,0.2); }
+  .nav-top { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-size: 18px; font-weight: 800; padding: 12px 16px 12px 0; white-space: nowrap; }
   .nav-logo span { opacity: 0.7; font-weight: 400; }
-  .nav-btn { background: none; border: none; color: rgba(255,255,255,0.75); padding: 18px 14px; cursor: pointer; font-size: 13px; font-weight: 500; white-space: nowrap; border-bottom: 3px solid transparent; transition: all 0.2s; }
-  .nav-btn:hover { color: white; }
-  .nav-btn.active { color: white; border-bottom-color: #a5d6a7; }
+  .nav-tabs { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid rgba(255,255,255,0.15); }
+  .nav-btn { background: none; border: none; color: rgba(255,255,255,0.75); padding: 10px 13px; cursor: pointer; font-size: 12.5px; font-weight: 500; white-space: nowrap; border-bottom: 3px solid transparent; transition: all 0.2s; }
+  .nav-btn:hover { color: white; background: rgba(255,255,255,0.08); }
+  .nav-btn.active { color: white; border-bottom-color: #a5d6a7; background: rgba(255,255,255,0.1); }
+  /* Hamburger — mobile only */
+  .nav-hamburger { display: none; background: none; border: none; color: white; font-size: 26px; cursor: pointer; padding: 10px 0; line-height: 1; }
+  /* Mobile drawer */
+  .nav-drawer { display: none; flex-direction: column; background: #2e7d32; padding: 8px 0 12px; }
+  .nav-drawer .nav-btn { padding: 13px 20px; font-size: 15px; border-bottom: none; border-left: 3px solid transparent; text-align: left; }
+  .nav-drawer .nav-btn.active { border-left-color: #a5d6a7; border-bottom: none; background: rgba(255,255,255,0.1); }
+  .nav-drawer.open { display: flex; }
+  @media (max-width: 767px) {
+    .nav-tabs { display: none; }
+    .nav-hamburger { display: block; }
+    .nav-logo { font-size: 16px; }
+  }
 
   /* MAIN */
   main { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
@@ -187,8 +199,11 @@
 <body>
 
 <nav>
-  <div class="nav-inner">
+  <div class="nav-top">
     <div class="nav-logo">AWAKEN 180° <span>Mike</span></div>
+    <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu">☰</button>
+  </div>
+  <div class="nav-tabs" id="navTabs">
     <button class="nav-btn active" onclick="showTab('dashboard')">📊 Dashboard</button>
     <button class="nav-btn" onclick="showTab('tracker')">✅ Daily Tracker</button>
     <button class="nav-btn" onclick="showTab('weekly')">📅 Weekly Check-in</button>
@@ -199,6 +214,18 @@
     <button class="nav-btn" onclick="showTab('recipes')">🍳 Recipes</button>
     <button class="nav-btn" onclick="showTab('coach')">🤖 AI Coach</button>
     <button class="nav-btn" onclick="showTab('settings')">⚙️ Settings</button>
+  </div>
+  <div class="nav-drawer" id="navDrawer">
+    <button class="nav-btn active" onclick="showTab('dashboard');closeMobileNav()">📊 Dashboard</button>
+    <button class="nav-btn" onclick="showTab('tracker');closeMobileNav()">✅ Daily Tracker</button>
+    <button class="nav-btn" onclick="showTab('weekly');closeMobileNav()">📅 Weekly Check-in</button>
+    <button class="nav-btn" onclick="showTab('program');closeMobileNav()">📖 The Program</button>
+    <button class="nav-btn" onclick="showTab('products');closeMobileNav()">🛒 Products</button>
+    <button class="nav-btn" onclick="showTab('restaurants');closeMobileNav()">🍽️ Restaurants</button>
+    <button class="nav-btn" onclick="showTab('foodguide');closeMobileNav()">🥗 Food Guide</button>
+    <button class="nav-btn" onclick="showTab('recipes');closeMobileNav()">🍳 Recipes</button>
+    <button class="nav-btn" onclick="showTab('coach');closeMobileNav()">🤖 AI Coach</button>
+    <button class="nav-btn" onclick="showTab('settings');closeMobileNav()">⚙️ Settings</button>
   </div>
 </nav>
 
@@ -1642,7 +1669,12 @@ function showTab(tab) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
-  event.target.classList.add('active');
+  // Activate matching buttons in both desktop tabs and mobile drawer
+  document.querySelectorAll('#navTabs .nav-btn, #navDrawer .nav-btn').forEach(b => {
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + tab + "'")) {
+      b.classList.add('active');
+    }
+  });
   if (tab === 'dashboard') refreshDashboard();
   if (tab === 'tracker') initTracker();
   if (tab === 'weekly') renderWeeklyLog();
@@ -1650,6 +1682,12 @@ function showTab(tab) {
   if (tab === 'recipes') renderRecipes();
   if (tab === 'coach') checkCoachKey();
   if (tab === 'settings') loadSettings();
+}
+function toggleMobileNav() {
+  document.getElementById('navDrawer').classList.toggle('open');
+}
+function closeMobileNav() {
+  document.getElementById('navDrawer').classList.remove('open');
 }
 
 // ══════════════════════════════════════════════
