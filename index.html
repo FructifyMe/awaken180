@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Awaken 180° — Mike's Program</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --green: #2e7d32;
+    --green-light: #4caf50;
+    --green-pale: #e8f5e9;
+    --green-mid: #a5d6a7;
+    --dark: #1a1a1a;
+    --gray: #555;
+    --gray-light: #f5f5f5;
+    --white: #fff;
+    --red: #c62828;
+    --red-pale: #ffebee;
+    --gold: #f57f17;
+    --gold-pale: #fff8e1;
+    --radius: 12px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f4f0; color: var(--dark); min-height: 100vh; }
+
+  /* NAV */
+  nav { background: var(--green); color: white; padding: 0 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+  .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-logo { font-size: 18px; font-weight: 800; padding: 16px 16px 16px 0; white-space: nowrap; margin-right: 8px; border-right: 1px solid rgba(255,255,255,0.2); }
+  .nav-logo span { opacity: 0.7; font-weight: 400; }
+  .nav-btn { background: none; border: none; color: rgba(255,255,255,0.75); padding: 18px 14px; cursor: pointer; font-size: 13px; font-weight: 500; white-space: nowrap; border-bottom: 3px solid transparent; transition: all 0.2s; }
+  .nav-btn:hover { color: white; }
+  .nav-btn.active { color: white; border-bottom-color: #a5d6a7; }
+
+  /* MAIN */
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+  .tab { display: none; }
+  .tab.active { display: block; }
+
+  /* CARDS */
+  .card { background: white; border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 20px; }
+  .card-title { font-size: 18px; font-weight: 700; color: var(--green); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .card-title svg { flex-shrink: 0; }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 700px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  /* STAT TILES */
+  .stat-tile { background: white; border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); text-align: center; }
+  .stat-tile .label { font-size: 12px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .stat-tile .value { font-size: 32px; font-weight: 800; color: var(--green); line-height: 1; }
+  .stat-tile .sub { font-size: 12px; color: var(--gray); margin-top: 4px; }
+
+  /* PROGRESS BAR */
+  .progress-wrap { margin: 8px 0; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 13px; color: var(--gray); margin-bottom: 4px; }
+  .progress-bar { height: 10px; background: #e0e0e0; border-radius: 5px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--green-light)); border-radius: 5px; transition: width 0.5s; }
+
+  /* FORMS */
+  label { display: block; font-size: 13px; font-weight: 600; color: var(--gray); margin-bottom: 5px; }
+  input[type=text], input[type=number], input[type=password], textarea, select {
+    width: 100%; padding: 10px 14px; border: 1.5px solid #e0e0e0; border-radius: 8px;
+    font-size: 14px; font-family: inherit; transition: border-color 0.2s; background: white;
+  }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--green); }
+  textarea { resize: vertical; min-height: 80px; }
+  .form-group { margin-bottom: 16px; }
+
+  /* BUTTONS */
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 8px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .btn-primary { background: var(--green); color: white; }
+  .btn-primary:hover { background: #1b5e20; }
+  .btn-secondary { background: var(--green-pale); color: var(--green); }
+  .btn-secondary:hover { background: var(--green-mid); }
+  .btn-danger { background: var(--red-pale); color: var(--red); }
+  .btn-sm { padding: 6px 12px; font-size: 12px; }
+  .btn-block { width: 100%; justify-content: center; }
+
+  /* MEAL TRACKER */
+  .meal-row { display: flex; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1px solid #f0f0f0; }
+  .meal-row:last-child { border-bottom: none; }
+  .meal-check { width: 22px; height: 22px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
+  .meal-info { flex: 1; }
+  .meal-name { font-weight: 600; font-size: 14px; }
+  .meal-time { font-size: 12px; color: var(--gray); }
+  .meal-desc { font-size: 13px; color: #444; margin-top: 2px; }
+  .meal-logged { opacity: 0.5; text-decoration: line-through; }
+
+  /* WATER TRACKER */
+  .water-glasses { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .glass { width: 40px; height: 40px; border-radius: 8px; border: 2px solid #b0bec5; background: white; cursor: pointer; font-size: 18px; transition: all 0.15s; display: flex; align-items: center; justify-content: center; }
+  .glass.filled { background: #e3f2fd; border-color: #1565c0; }
+
+  /* FOOD GUIDE */
+  .food-search { margin-bottom: 16px; }
+  .food-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .food-table th { background: var(--green); color: white; padding: 10px 12px; text-align: left; font-weight: 600; }
+  .food-table td { padding: 9px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+  .food-table tr:hover td { background: var(--green-pale); }
+  .tag-eat { display: inline-block; background: var(--green-pale); color: var(--green); border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+  .tag-avoid { display: inline-block; background: var(--red-pale); color: var(--red); border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+  .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .filter-tab { padding: 6px 14px; border-radius: 20px; border: 1.5px solid #ddd; background: white; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+  .filter-tab.active { background: var(--green); color: white; border-color: var(--green); }
+
+  /* RECIPES */
+  .recipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .recipe-card { background: white; border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); cursor: pointer; transition: box-shadow 0.2s; border: 1.5px solid transparent; }
+  .recipe-card:hover { box-shadow: var(--shadow-lg); border-color: var(--green-mid); }
+  .recipe-card.open { border-color: var(--green); }
+  .recipe-emoji { font-size: 32px; margin-bottom: 8px; }
+  .recipe-name { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .recipe-meta { font-size: 12px; color: var(--gray); }
+  .recipe-body { display: none; margin-top: 12px; border-top: 1px solid #f0f0f0; padding-top: 12px; }
+  .recipe-card.open .recipe-body { display: block; }
+  .recipe-section { font-weight: 600; font-size: 13px; color: var(--green); margin: 10px 0 4px; }
+  .recipe-body p, .recipe-body li { font-size: 13px; color: #444; line-height: 1.6; }
+  .recipe-body ul, .recipe-body ol { padding-left: 16px; }
+
+  /* AI COACH */
+  .chat-wrap { display: flex; flex-direction: column; height: 500px; }
+  .chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .msg { max-width: 80%; padding: 12px 16px; border-radius: 16px; font-size: 14px; line-height: 1.5; }
+  .msg-user { background: var(--green); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+  .msg-ai { background: white; color: var(--dark); align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: var(--shadow); }
+  .msg-ai strong { color: var(--green); }
+  .chat-input-row { display: flex; gap: 8px; padding: 16px; border-top: 1px solid #f0f0f0; background: white; border-radius: 0 0 var(--radius) var(--radius); }
+  .chat-input { flex: 1; padding: 10px 14px; border: 1.5px solid #e0e0e0; border-radius: 24px; font-size: 14px; font-family: inherit; }
+  .chat-input:focus { outline: none; border-color: var(--green); }
+  .chat-send { background: var(--green); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+  .typing { display: inline-flex; gap: 4px; padding: 8px; }
+  .typing span { width: 8px; height: 8px; border-radius: 50%; background: var(--green-mid); animation: bounce 1.2s infinite; }
+  .typing span:nth-child(2) { animation-delay: 0.2s; }
+  .typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+
+  /* WEEKLY */
+  .week-log-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+  .week-log-row:last-child { border-bottom: none; }
+  .week-num { font-weight: 700; color: var(--green); min-width: 60px; }
+  .week-date { font-size: 12px; color: var(--gray); min-width: 90px; }
+  .week-weight { font-weight: 600; min-width: 60px; }
+  .week-lost { font-size: 12px; color: var(--green); }
+
+  /* ALERTS */
+  .alert { padding: 12px 16px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }
+  .alert-success { background: var(--green-pale); color: var(--green); border-left: 3px solid var(--green); }
+  .alert-warning { background: var(--gold-pale); color: var(--gold); border-left: 3px solid var(--gold); }
+  .alert-info { background: #e3f2fd; color: #1565c0; border-left: 3px solid #1565c0; }
+
+  /* SETTINGS */
+  .settings-section { margin-bottom: 24px; }
+  .settings-section h3 { font-size: 15px; font-weight: 700; color: var(--green); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #f0f0f0; }
+
+  /* STREAK */
+  .streak-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--gold-pale); color: var(--gold); border-radius: 20px; padding: 6px 14px; font-weight: 700; font-size: 14px; }
+
+  /* PAGE HEADER */
+  .page-header { margin-bottom: 24px; }
+  .page-header h1 { font-size: 24px; font-weight: 800; color: var(--dark); }
+  .page-header p { color: var(--gray); font-size: 14px; margin-top: 4px; }
+
+  /* CHART CONTAINER */
+  .chart-container { position: relative; height: 240px; }
+
+  /* QUICK LOG */
+  .quick-log-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  @media (max-width: 600px) { .quick-log-grid { grid-template-columns: 1fr 1fr; } }
+  .quick-meal-btn { padding: 10px 6px; border-radius: 8px; border: 1.5px solid #e0e0e0; background: white; cursor: pointer; text-align: center; font-size: 11px; font-weight: 600; transition: all 0.15s; color: var(--gray); }
+  .quick-meal-btn.done { background: var(--green-pale); border-color: var(--green); color: var(--green); }
+
+  /* SCROLLABLE TABLE */
+  .table-scroll { overflow-x: auto; }
+
+  /* BADGE */
+  .badge { display: inline-block; background: var(--green); color: white; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; margin-left: 6px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">AWAKEN 180° <span>Mike</span></div>
+    <button class="nav-btn active" onclick="showTab('dashboard')">📊 Dashboard</button>
+    <button class="nav-btn" onclick="showTab('tracker')">✅ Daily Tracker</button>
+    <button class="nav-btn" onclick="showTab('weekly')">📅 Weekly Check-in</button>
+    <button class="nav-btn" onclick="showTab('foodguide')">🥗 Food Guide</button>
+    <button class="nav-btn" onclick="showTab('recipes')">🍳 Recipes</button>
+    <button class="nav-btn" onclick="showTab('coach')">🤖 AI Coach</button>
+    <button class="nav-btn" onclick="showTab('settings')">⚙️ Settings</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════════════════
+     DASHBOARD
+══════════════════════════════════════════════ -->
+<div id="tab-dashboard" class="tab active">
+  <div class="page-header">
+    <h1>Good morning, Mike 👋</h1>
+    <p id="dash-date"></p>
+  </div>
+
+  <div class="grid-3" id="stat-tiles">
+    <div class="stat-tile">
+      <div class="label">Current Weight</div>
+      <div class="value" id="dash-weight">—</div>
+      <div class="sub">lbs</div>
+    </div>
+    <div class="stat-tile">
+      <div class="label">Total Lost</div>
+      <div class="value" id="dash-lost">—</div>
+      <div class="sub">lbs since start</div>
+    </div>
+    <div class="stat-tile">
+      <div class="label">To Goal</div>
+      <div class="value" id="dash-to-goal">—</div>
+      <div class="sub">lbs remaining</div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;" class="card">
+    <div class="card-title">Progress to Goal</div>
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span>Start: <strong id="prog-start">380</strong> lbs</span>
+        <span id="prog-pct">0%</span>
+        <span>Goal: <strong id="prog-goal">265</strong> lbs</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Weight History</div>
+      <div class="chart-container">
+        <canvas id="weightChart"></canvas>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Today's Progress</div>
+      <div id="today-summary"></div>
+      <div style="margin-top:16px;">
+        <div class="card-title" style="font-size:14px;">Streak</div>
+        <div id="streak-display"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="dash-tip">
+    <div class="card-title">💡 Today's Coaching Tip</div>
+    <p id="tip-text" style="font-size:14px;line-height:1.6;color:#444;"></p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     DAILY TRACKER
+══════════════════════════════════════════════ -->
+<div id="tab-tracker" class="tab">
+  <div class="page-header">
+    <h1>Daily Tracker</h1>
+    <p id="tracker-date"></p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Today's 5 Meals</div>
+    <div id="meal-list"></div>
+    <div style="margin-top:16px;">
+      <button class="btn btn-primary btn-sm" onclick="saveMeals()">Save Meals</button>
+      <span id="meals-saved" style="font-size:12px;color:var(--green);margin-left:10px;display:none;">✓ Saved</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">💧 Water Intake</div>
+    <p style="font-size:13px;color:var(--gray);margin-bottom:8px;">Target: 10 glasses (80+ oz). Tap each glass as you drink it.</p>
+    <div class="water-glasses" id="water-glasses"></div>
+    <p style="font-size:12px;color:var(--gray);margin-top:8px;" id="water-count"></p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📝 Daily Notes</div>
+    <div class="form-group">
+      <label>How do you feel today? Any wins, struggles, or observations?</label>
+      <textarea id="daily-notes" placeholder="e.g. Felt great at lunch, struggled with cravings at 3pm..."></textarea>
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="saveNotes()">Save Notes</button>
+    <span id="notes-saved" style="font-size:12px;color:var(--green);margin-left:10px;display:none;">✓ Saved</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     WEEKLY CHECK-IN
+══════════════════════════════════════════════ -->
+<div id="tab-weekly" class="tab">
+  <div class="page-header">
+    <h1>Weekly Check-In</h1>
+    <p>Log every Monday morning — same time, same conditions.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Log This Week</div>
+    <div class="grid-2">
+      <div class="form-group">
+        <label>Week Number</label>
+        <input type="number" id="week-num" min="1" max="100" placeholder="e.g. 1">
+      </div>
+      <div class="form-group">
+        <label>Today's Weight (lbs)</label>
+        <input type="number" id="week-weight" step="0.1" placeholder="e.g. 373.5">
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="form-group">
+        <label>Meals On Protocol</label>
+        <select id="week-meals">
+          <option value="">Select...</option>
+          <option>5/5 days — Perfect week!</option>
+          <option>4/5 days — Great</option>
+          <option>3/5 days — Good</option>
+          <option>2/5 days — Needs work</option>
+          <option>1/5 days — Rough week</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Energy Level</label>
+        <select id="week-energy">
+          <option value="">Select...</option>
+          <option>Great — Feeling strong</option>
+          <option>Good — Steady energy</option>
+          <option>Okay — Some ups and downs</option>
+          <option>Low — Tired this week</option>
+          <option>Tough — Really struggled</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Water Goal Met Daily?</label>
+      <select id="week-water">
+        <option value="">Select...</option>
+        <option>Yes — Hit it every day</option>
+        <option>Most days — 5+/7</option>
+        <option>Some days — 3-4/7</option>
+        <option>Rarely — Need to improve</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Exercise This Week</label>
+      <input type="text" id="week-exercise" placeholder="e.g. Walked 25 min daily, 2x resistance training">
+    </div>
+    <div class="form-group">
+      <label>Biggest Win This Week</label>
+      <input type="text" id="week-win" placeholder="e.g. Stayed on protocol at a restaurant">
+    </div>
+    <div class="form-group">
+      <label>Biggest Challenge</label>
+      <input type="text" id="week-challenge" placeholder="e.g. Late-night hunger">
+    </div>
+    <div class="form-group">
+      <label>Notes</label>
+      <textarea id="week-notes" placeholder="Anything else worth recording this week..."></textarea>
+    </div>
+    <button class="btn btn-primary" onclick="saveWeeklyCheckIn()">Log This Week</button>
+    <span id="weekly-saved" style="font-size:12px;color:var(--green);margin-left:10px;display:none;">✓ Saved</span>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Progress Log</div>
+    <div class="table-scroll">
+      <table class="food-table" id="weekly-log-table">
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>Date</th>
+            <th>Weight</th>
+            <th>Lost</th>
+            <th>Total Lost</th>
+            <th>Meals</th>
+            <th>Win</th>
+          </tr>
+        </thead>
+        <tbody id="weekly-log-body"></tbody>
+      </table>
+    </div>
+    <div style="margin-top:12px;">
+      <button class="btn btn-danger btn-sm" onclick="clearWeeklyLog()">Clear All Log Data</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     FOOD GUIDE
+══════════════════════════════════════════════ -->
+<div id="tab-foodguide" class="tab">
+  <div class="page-header">
+    <h1>Food Guide</h1>
+    <p>Your complete Awaken 180° approved and avoid food list.</p>
+  </div>
+
+  <div class="card">
+    <input type="text" class="food-search" id="food-search" placeholder="🔍 Search foods..." oninput="filterFood()">
+    <div class="filter-tabs" id="food-filters">
+      <button class="filter-tab active" onclick="setFoodFilter('all', this)">All Categories</button>
+      <button class="filter-tab" onclick="setFoodFilter('Proteins', this)">Proteins</button>
+      <button class="filter-tab" onclick="setFoodFilter('Vegetables', this)">Vegetables</button>
+      <button class="filter-tab" onclick="setFoodFilter('Beverages', this)">Beverages</button>
+      <button class="filter-tab" onclick="setFoodFilter('Fats', this)">Fats & Oils</button>
+      <button class="filter-tab" onclick="setFoodFilter('Seasonings', this)">Seasonings</button>
+      <button class="filter-tab" onclick="setFoodFilter('Grains', this)">Grains/Starches</button>
+      <button class="filter-tab" onclick="setFoodFilter('Dairy', this)">Dairy</button>
+    </div>
+    <div class="table-scroll">
+      <table class="food-table" id="food-table">
+        <thead>
+          <tr>
+            <th style="width:120px;">Category</th>
+            <th>✅ Eat Freely</th>
+            <th>❌ Avoid</th>
+          </tr>
+        </thead>
+        <tbody id="food-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="background:var(--gold-pale);">
+    <div class="card-title" style="color:var(--gold);">⚠️ Phase 1 Strict Rules</div>
+    <ul style="font-size:13px;color:#555;line-height:2;padding-left:16px;">
+      <li><strong>No fruit</strong> — fructose pauses fat burning</li>
+      <li><strong>No dairy</strong> — except egg whites</li>
+      <li><strong>No starches</strong> — bread, pasta, rice, potatoes, corn</li>
+      <li><strong>No alcohol</strong> — all forms</li>
+      <li><strong>No legumes</strong> — beans, lentils, chickpeas</li>
+      <li><strong>No added sugars</strong> — read every label</li>
+      <li><strong>Never skip meals</strong> — 5 meals every day, no exceptions</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     RECIPES
+══════════════════════════════════════════════ -->
+<div id="tab-recipes" class="tab">
+  <div class="page-header">
+    <h1>Recipe Library</h1>
+    <p>All Awaken 180° compliant. All delicious.</p>
+  </div>
+  <div class="recipe-grid" id="recipe-grid"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     AI COACH
+══════════════════════════════════════════════ -->
+<div id="tab-coach" class="tab">
+  <div class="page-header">
+    <h1>AI Coach</h1>
+    <p>Your personal Awaken 180° coach — ask anything about the program.</p>
+  </div>
+
+  <div id="coach-no-key" class="alert alert-warning" style="display:none;">
+    ⚠️ No Anthropic API key set. Go to <strong>Settings</strong> to add your key and unlock AI coaching.
+  </div>
+
+  <div class="card" style="padding:0;overflow:hidden;" id="coach-card">
+    <div class="chat-wrap">
+      <div class="chat-messages" id="chat-messages">
+        <div class="msg msg-ai">
+          <strong>Coach</strong><br>
+          Hey Mike! I'm your personal Awaken 180° coach. I know your program inside and out — the food rules, meal timing, how to handle plateaus, restaurant strategies, everything. What's on your mind today?
+        </div>
+      </div>
+      <div class="chat-input-row">
+        <input class="chat-input" id="chat-input" placeholder="Ask your coach anything..." onkeydown="if(event.key==='Enter')sendMessage()">
+        <button class="chat-send" id="chat-send" onclick="sendMessage()">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title">Suggested Questions</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <button class="btn btn-secondary btn-sm" onclick="askCoach('What should I eat if I\'m craving something sweet?')">Sweet cravings help</button>
+      <button class="btn btn-secondary btn-sm" onclick="askCoach('I have a restaurant dinner tonight. What do I order?')">Restaurant tips</button>
+      <button class="btn btn-secondary btn-sm" onclick="askCoach('I\'ve been on the program 2 weeks and the scale hasn\'t moved. What do I do?')">Plateau troubleshoot</button>
+      <button class="btn btn-secondary btn-sm" onclick="askCoach('What are some quick meal ideas I can prep on Sunday?')">Meal prep ideas</button>
+      <button class="btn btn-secondary btn-sm" onclick="askCoach('I feel tired and dizzy. Is that normal?')">Fatigue / dizziness</button>
+      <button class="btn btn-secondary btn-sm" onclick="askCoach('How do I handle a social event or party?')">Social situations</button>
+      <button class="btn btn-secondary btn-sm" onclick="askCoach('I slipped up yesterday. How do I get back on track?')">Get back on track</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SETTINGS
+══════════════════════════════════════════════ -->
+<div id="tab-settings" class="tab">
+  <div class="page-header">
+    <h1>Settings</h1>
+    <p>Configure your program details.</p>
+  </div>
+
+  <div class="card">
+    <div class="settings-section">
+      <h3>Your Profile</h3>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="s-name" value="Mike Farley">
+        </div>
+        <div class="form-group">
+          <label>Start Date</label>
+          <input type="text" id="s-start-date" value="2026-04-06">
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Starting Weight (lbs)</label>
+          <input type="number" id="s-start-weight" value="380">
+        </div>
+        <div class="form-group">
+          <label>Goal Weight (lbs)</label>
+          <input type="number" id="s-goal-weight" value="265">
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>AI Coach API Key</h3>
+      <div class="alert alert-info" style="margin-bottom:12px;">
+        Your API key is stored only in your browser's local storage — it never leaves your device. Get your key at <strong>console.anthropic.com</strong>.
+      </div>
+      <div class="form-group">
+        <label>Anthropic API Key</label>
+        <input type="password" id="s-api-key" placeholder="sk-ant-...">
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+    <span id="settings-saved" style="font-size:12px;color:var(--green);margin-left:10px;display:none;">✓ Settings saved</span>
+  </div>
+
+  <div class="card">
+    <div class="settings-section">
+      <h3>Data Management</h3>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:12px;">All your data is stored in your browser's local storage. Export it for backup.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-secondary" onclick="exportData()">Export All Data</button>
+        <button class="btn btn-danger" onclick="clearAllData()">Clear All Data</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ══════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════
+
+const FOOD_DATA = [
+  { cat: 'Proteins', eat: 'Chicken breast (skinless), turkey breast, cod, tilapia, tuna in water, salmon, shrimp, scallops, egg whites, lean ground turkey (93%+), sirloin, filet mignon', avoid: 'Processed meats, sausage, bacon, deli meat with added sugars, fatty cuts (ribeye, pork belly)' },
+  { cat: 'Vegetables', eat: 'Spinach, arugula, romaine, kale, broccoli, cauliflower, cucumbers, bell peppers, zucchini, asparagus, green beans, mushrooms, celery, radishes, onions, cabbage, bok choy, Brussels sprouts', avoid: 'Corn, peas, carrots (limit), beets, potatoes (all), sweet potatoes (Phase 1), yams, winter squash, parsnips' },
+  { cat: 'Fats', eat: 'Extra virgin olive oil (1 tsp/meal for cooking), avocado oil (cooking), avocado (½ per day max)', avoid: 'Butter, coconut oil in excess, vegetable/canola/soybean oil, salad dressings with sugar, mayo, margarine' },
+  { cat: 'Beverages', eat: 'Water (80–100+ oz/day), black coffee, plain green or herbal tea, sparkling water (unsweetened), electrolyte drinks (no sugar)', avoid: 'Soda (including diet), juice (all), alcohol (all), energy drinks, flavored coffee drinks, milk, sports drinks with sugar' },
+  { cat: 'Seasonings', eat: 'All herbs & spices, garlic, lemon/lime juice, mustard (check label), hot sauce (no sugar), apple cider vinegar, coconut aminos, sea salt, pepper', avoid: 'Ketchup, BBQ sauce, teriyaki, honey, maple syrup, most store sauces, sweet chili sauce, hoisin' },
+  { cat: 'Dairy', eat: 'Egg whites (excellent protein source), unsweetened almond milk (in shakes only, small amount)', avoid: 'Cheese (all), yogurt, sour cream, regular milk, heavy cream, butter, kefir, cottage cheese' },
+  { cat: 'Grains', eat: 'None in Phase 1', avoid: 'Bread, pasta, rice, oats, cereal, crackers, chips, tortillas, quinoa, couscous, flour of any kind' },
+  { cat: 'Fruit', eat: 'None in Phase 1 — fructose pauses ketosis. Lemon/lime juice for seasoning only.', avoid: 'All fruit — berries, apples, bananas, oranges, grapes, melon. Even low-sugar fruits stall Phase 1.' },
+  { cat: 'Sweeteners', eat: 'Stevia (small amounts), monk fruit extract (small amounts)', avoid: 'Sugar, honey, agave, maple syrup, corn syrup, aspartame, Splenda, erythritol in large amounts' },
+  { cat: 'Legumes', eat: 'None in Phase 1', avoid: 'All beans (black, kidney, pinto, navy), lentils, chickpeas, hummus, edamame, tofu' },
+];
+
+const RECIPES = [
+  {
+    emoji: '🍗', name: 'Herb-Grilled Chicken Breast', meal: 'Lunch/Dinner', time: '20 min',
+    ingredients: ['6-8 oz chicken breast', '1 tsp olive oil', '1 tsp garlic powder', '1 tsp Italian herbs', 'Salt, pepper, lemon juice', '2 cups spinach or mixed greens'],
+    instructions: ['Pound chicken to even thickness (½ inch).', 'Coat with olive oil, garlic powder, herbs, salt & pepper.', 'Grill or bake at 400°F for 18-22 min until internal temp 165°F.', 'Squeeze fresh lemon over top. Serve over greens.'],
+    tips: 'Batch-cook 4-6 breasts on Sunday for the week.'
+  },
+  {
+    emoji: '🐟', name: 'Lemon-Herb Baked Cod', meal: 'Lunch/Dinner', time: '18 min',
+    ingredients: ['7 oz cod fillet', '1 tsp olive oil', 'Lemon slices', 'Fresh dill, parsley, garlic', '2 cups asparagus or broccoli'],
+    instructions: ['Preheat oven to 400°F.', 'Place cod on parchment. Drizzle with olive oil.', 'Top with lemon slices, dill, garlic, salt & pepper.', 'Bake 12-15 min until fish flakes easily.', 'Roast asparagus alongside (same temp, 15 min).'],
+    tips: 'Cod is mild and takes any seasoning. Try blackening spice for variety.'
+  },
+  {
+    emoji: '🍤', name: 'Garlic Shrimp Stir-Fry', meal: 'Lunch/Dinner', time: '15 min',
+    ingredients: ['6 oz shrimp (peeled, deveined)', '1 tsp olive oil', '3 garlic cloves minced', '1 cup broccoli florets', '1 cup bell peppers sliced', '1 tbsp coconut aminos', 'Red pepper flakes, green onion'],
+    instructions: ['Heat oil in skillet over high heat.', 'Add garlic, cook 30 sec.', 'Add shrimp, cook 2 min per side.', 'Add vegetables, cook 3 min.', 'Add coconut aminos, toss. Serve immediately.'],
+    tips: 'Coconut aminos = soy sauce with no soy. Game-changer for flavor.'
+  },
+  {
+    emoji: '🥗', name: 'Chopped Power Salad', meal: 'Lunch', time: '10 min',
+    ingredients: ['2 cups romaine or mixed greens', '4 oz grilled chicken breast (sliced)', '½ cucumber diced', '½ bell pepper diced', 'Mushrooms, radishes', '1 tsp olive oil + lemon juice dressing', 'Salt, pepper, herbs'],
+    instructions: ['Chop all vegetables and greens.', 'Top with sliced chicken.', 'Drizzle with 1 tsp olive oil and fresh lemon juice.', 'Season with salt, pepper, garlic powder.'],
+    tips: 'Use rotisserie chicken (check: no skin, no sugary seasoning).'
+  },
+  {
+    emoji: '🍳', name: 'Egg White Scramble', meal: 'Breakfast (Meal 1)', time: '8 min',
+    ingredients: ['4-5 egg whites (or ½ cup carton egg whites)', '1 cup baby spinach', '½ cup mushrooms sliced', '¼ cup bell pepper diced', 'Garlic powder, salt, pepper', 'Olive oil spray'],
+    instructions: ['Spray pan with olive oil over medium heat.', 'Sauté mushrooms and peppers 3 min.', 'Add spinach, cook 1 min.', 'Pour in egg whites, scramble gently until just set.', 'Season generously. Eat immediately.'],
+    tips: 'Carton egg whites (like Egg Beaters) save time. 25g+ protein, zero yolk fat.'
+  },
+  {
+    emoji: '🥣', name: 'Chocolate Protein Shake', meal: 'Meal 1 / Meal 4', time: '2 min',
+    ingredients: ['1 scoop chocolate whey protein (~25g protein)', '12 oz cold water', 'Ice cubes', 'Pinch of cinnamon (optional)', 'Dash of vanilla extract'],
+    instructions: ['Add all ingredients to a shaker bottle or blender.', 'Shake vigorously for 30 seconds, or blend 20 sec.', 'Drink immediately — best cold.'],
+    tips: 'Look for protein powder with <5g carbs per scoop. Optimum Nutrition Gold Standard is a solid choice.'
+  },
+  {
+    emoji: '🍲', name: 'Spicy Chicken Lettuce Wraps', meal: 'Lunch/Dinner', time: '20 min',
+    ingredients: ['6 oz lean ground turkey or chicken breast', '1 tsp olive oil', 'Garlic, ginger', '½ cup mushrooms, minced', '2 tbsp coconut aminos', 'Sriracha or chili flakes', 'Butter lettuce leaves', 'Green onion, cilantro'],
+    instructions: ['Brown turkey in olive oil with garlic and ginger.', 'Add mushrooms, cook 3 min.', 'Add coconut aminos and sriracha.', 'Serve in butter lettuce cups with green onion.'],
+    tips: 'Lettuce wraps are a crowd-pleaser — great for when family is eating something different.'
+  },
+  {
+    emoji: '🥦', name: 'Roasted Broccoli & Cauliflower', meal: 'Side Dish', time: '25 min',
+    ingredients: ['2 cups broccoli florets', '1 cup cauliflower florets', '1 tsp olive oil', 'Garlic powder, salt, pepper', 'Lemon zest', 'Optional: nutritional yeast (cheesy flavor)'],
+    instructions: ['Preheat oven to 425°F.', 'Toss vegetables with olive oil and seasonings.', 'Spread on baking sheet — don\'t crowd.', 'Roast 20-22 min, flipping halfway, until edges are crispy.'],
+    tips: 'The high heat gives them a nutty, almost caramelized flavor. Nothing like steaming.'
+  },
+  {
+    emoji: '🍵', name: 'Bone Broth Protein Soup', meal: 'Meal 2 / Anytime', time: '5 min',
+    ingredients: ['1 cup bone broth (low sodium)', '2 oz cooked chicken breast shredded', '½ cup spinach', 'Pinch of garlic, onion powder', 'Salt, pepper, squeeze of lemon'],
+    instructions: ['Heat bone broth in a mug in microwave (2 min).', 'Add shredded chicken and spinach.', 'Season and drink/eat as a warm cup.'],
+    tips: 'Bone broth has collagen and protein. Perfect for cold days or when you want something warm and comforting.'
+  },
+  {
+    emoji: '🐟', name: 'Sashimi Bowl (Restaurant-Style)', meal: 'Lunch/Dinner', time: '5 min',
+    ingredients: ['6 oz fresh tuna or salmon sashimi (from a reputable store/restaurant)', '1 cup cucumber sliced thin', '½ cup shredded cabbage', '1 tsp sesame oil (use sparingly)', '2 tbsp coconut aminos', 'Wasabi, pickled ginger'],
+    instructions: ['Arrange sashimi over cucumber and cabbage.', 'Drizzle with coconut aminos.', 'Add a tiny bit of sesame oil for aroma.', 'Serve with wasabi on the side.'],
+    tips: 'Perfect for when you\'re at a sushi restaurant — just say "sashimi only, no rice."'
+  },
+  {
+    emoji: '🥩', name: 'Filet Mignon + Asparagus', meal: 'Dinner', time: '20 min',
+    ingredients: ['6-7 oz filet mignon', 'Salt, coarse pepper, garlic', '1 tsp olive oil', '1 bunch asparagus', 'Lemon wedges'],
+    instructions: ['Pat steak dry. Season generously with salt, pepper.', 'Heat oven-safe skillet to very high heat.', 'Sear steak 2-3 min per side.', 'Finish in 400°F oven 4-5 min for medium.', 'Meanwhile, roast asparagus at 425°F with olive oil 12 min.'],
+    tips: 'Filet is the leanest cut. You\'re allowed to eat well on this program!'
+  },
+  {
+    emoji: '🫐', name: 'Vanilla Protein Pudding', meal: 'Dessert / Meal 4', time: '5 min + chill',
+    ingredients: ['1 scoop vanilla whey protein', '¼ cup unsweetened almond milk', 'Pinch of stevia', 'Dash of vanilla extract', 'Ice or refrigerate to thicken'],
+    instructions: ['Mix protein powder with just enough almond milk to form a thick paste.', 'Add vanilla and stevia.', 'Add more almond milk slowly until pudding consistency.', 'Refrigerate 30 min for best texture.'],
+    tips: 'This satisfies a sweet craving completely. Keep it thick — don\'t over-add liquid.'
+  },
+];
+
+const TIPS = [
+  "Drink your first 16 oz of water before you even look at your phone. Start the day winning.",
+  "Meal timing is everything. Set a phone alarm for each of your 5 meals today. Don't let 4 hours pass between meals.",
+  "At every meal, build your plate like this: protein first, vegetables second. Always in that order mentally.",
+  "When cravings hit, they last 10 minutes on average. Drink 16 oz of water, wait it out. It will pass.",
+  "Sunday prep = weekday success. 2 hours on Sunday saves you 10 hours of decisions during the week.",
+  "You don't need willpower. You need a prepared kitchen. Empty your pantry of temptations this weekend.",
+  "The scale lies daily. Water retention, muscle, digestion — it all affects the number. Trust the weekly average, not the daily reading.",
+  "A restaurant dinner is not a reason to go off protocol. Google the menu before you go. Have your order decided before you sit down.",
+  "Fatigue in weeks 1-2 is normal. Your body is switching fuel sources. Electrolytes (magnesium, potassium) help.",
+  "Protein is your best friend. It keeps you full, preserves muscle, and is harder for your body to store as fat.",
+  "Progress isn't just the scale. Notice your energy, your sleep quality, how your clothes fit. These change faster.",
+  "You're not on a diet. You're changing how you eat for the rest of your life. That's a different mindset entirely.",
+];
+
+// ══════════════════════════════════════════════
+// STORAGE HELPERS
+// ══════════════════════════════════════════════
+const S = {
+  get: (k, def=null) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch(e) { return def; } },
+  set: (k, v) => localStorage.setItem(k, JSON.stringify(v)),
+  del: (k) => localStorage.removeItem(k),
+};
+
+function getSettings() {
+  return S.get('settings', { name: 'Mike Farley', startDate: '2026-04-06', startWeight: 380, goalWeight: 265, apiKey: '' });
+}
+
+function todayKey() { return new Date().toISOString().split('T')[0]; }
+
+// ══════════════════════════════════════════════
+// NAV
+// ══════════════════════════════════════════════
+function showTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  event.target.classList.add('active');
+  if (tab === 'dashboard') refreshDashboard();
+  if (tab === 'tracker') initTracker();
+  if (tab === 'weekly') renderWeeklyLog();
+  if (tab === 'foodguide') renderFoodTable();
+  if (tab === 'recipes') renderRecipes();
+  if (tab === 'coach') checkCoachKey();
+  if (tab === 'settings') loadSettings();
+}
+
+// ══════════════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════════════
+function refreshDashboard() {
+  const cfg = getSettings();
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const now = new Date();
+  document.getElementById('dash-date').textContent = days[now.getDay()] + ', ' + now.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+
+  // Get latest weight from weekly log
+  const log = S.get('weekly_log', []);
+  const latestEntry = log.length ? log[log.length-1] : null;
+  const latestWeight = latestEntry ? parseFloat(latestEntry.weight) : cfg.startWeight;
+  const totalLost = cfg.startWeight - latestWeight;
+  const toGoal = latestWeight - cfg.goalWeight;
+  const pct = Math.max(0, Math.min(100, (totalLost / (cfg.startWeight - cfg.goalWeight)) * 100));
+
+  document.getElementById('dash-weight').textContent = latestWeight || cfg.startWeight;
+  document.getElementById('dash-lost').textContent = totalLost > 0 ? totalLost.toFixed(1) : '0';
+  document.getElementById('dash-to-goal').textContent = toGoal > 0 ? toGoal.toFixed(1) : '🎉';
+  document.getElementById('prog-start').textContent = cfg.startWeight;
+  document.getElementById('prog-goal').textContent = cfg.goalWeight;
+  document.getElementById('prog-pct').textContent = pct.toFixed(1) + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+
+  // Today summary
+  const todayData = S.get('daily_' + todayKey(), { meals: [false,false,false,false,false], water: 0 });
+  const mealsDone = todayData.meals.filter(Boolean).length;
+  const water = todayData.water || 0;
+  document.getElementById('today-summary').innerHTML = `
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:8px;">
+      <div><strong>${mealsDone}/5</strong> <span style="font-size:13px;color:var(--gray);">meals logged</span></div>
+      <div><strong>${water}/10</strong> <span style="font-size:13px;color:var(--gray);">glasses water</span></div>
+    </div>
+    <div class="progress-wrap"><div class="progress-label"><span>Meals</span><span>${mealsDone}/5</span></div><div class="progress-bar"><div class="progress-fill" style="width:${mealsDone*20}%"></div></div></div>
+    <div class="progress-wrap"><div class="progress-label"><span>Water</span><span>${water}/10</span></div><div class="progress-bar"><div class="progress-fill" style="width:${water*10}%;background:linear-gradient(90deg,#1565c0,#42a5f5)"></div></div></div>
+  `;
+
+  // Streak
+  const streak = calcStreak();
+  document.getElementById('streak-display').innerHTML = `<div class="streak-badge">🔥 ${streak} day streak</div>`;
+
+  // Chart
+  renderWeightChart();
+
+  // Tip
+  const tipIdx = now.getDate() % TIPS.length;
+  document.getElementById('tip-text').textContent = TIPS[tipIdx];
+}
+
+function calcStreak() {
+  let streak = 0;
+  let d = new Date();
+  for (let i = 0; i < 365; i++) {
+    const key = d.toISOString().split('T')[0];
+    const data = S.get('daily_' + key, null);
+    if (data && data.meals && data.meals.filter(Boolean).length >= 3) {
+      streak++;
+    } else if (i > 0) { break; }
+    d.setDate(d.getDate() - 1);
+  }
+  return streak;
+}
+
+let weightChartInst = null;
+function renderWeightChart() {
+  const log = S.get('weekly_log', []);
+  const cfg = getSettings();
+  const labels = ['Start', ...log.map(e => 'Wk ' + e.week)];
+  const data = [cfg.startWeight, ...log.map(e => parseFloat(e.weight)||null)];
+  const goal = cfg.goalWeight;
+
+  const ctx = document.getElementById('weightChart').getContext('2d');
+  if (weightChartInst) weightChartInst.destroy();
+  weightChartInst = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Weight (lbs)',
+          data,
+          borderColor: '#2e7d32',
+          backgroundColor: 'rgba(46,125,50,0.08)',
+          borderWidth: 2.5,
+          pointRadius: 4,
+          pointBackgroundColor: '#2e7d32',
+          fill: true,
+          tension: 0.3,
+        },
+        {
+          label: 'Goal',
+          data: Array(labels.length).fill(goal),
+          borderColor: '#f57f17',
+          borderWidth: 1.5,
+          borderDash: [6,3],
+          pointRadius: 0,
+          fill: false,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { min: Math.max(0, goal - 20), suggestedMax: cfg.startWeight + 10, grid: { color: '#f0f0f0' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+}
+
+// ══════════════════════════════════════════════
+// DAILY TRACKER
+// ══════════════════════════════════════════════
+const MEALS_DEF = [
+  { name: 'Meal 1 — Breakfast', time: '~7–8 AM', desc: 'Protein shake or egg white scramble with vegetables' },
+  { name: 'Meal 2 — Mid-Morning', time: '~10–11 AM', desc: 'Protein bar, turkey breast slices, or boiled egg whites' },
+  { name: 'Meal 3 — Lunch', time: '~1–2 PM', desc: '6–8 oz lean protein + 2 cups non-starchy vegetables' },
+  { name: 'Meal 4 — Afternoon', time: '~4–5 PM', desc: 'Protein shake or small protein snack' },
+  { name: 'Meal 5 — Dinner', time: '~7–8 PM', desc: '6–8 oz lean protein + 2 cups non-starchy vegetables' },
+];
+
+function initTracker() {
+  const now = new Date();
+  document.getElementById('tracker-date').textContent = now.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'});
+  const data = S.get('daily_' + todayKey(), { meals: [false,false,false,false,false], water: 0 });
+
+  // Meals
+  const list = document.getElementById('meal-list');
+  list.innerHTML = MEALS_DEF.map((m, i) => `
+    <div class="meal-row" id="mrow-${i}">
+      <input type="checkbox" class="meal-check" id="meal-${i}" ${data.meals[i] ? 'checked' : ''} onchange="updateMealRow(${i})">
+      <div class="meal-info ${data.meals[i] ? 'meal-logged' : ''}">
+        <div class="meal-name">${m.name}</div>
+        <div class="meal-time">${m.time}</div>
+        <div class="meal-desc">${m.desc}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Water
+  const wg = document.getElementById('water-glasses');
+  wg.innerHTML = Array.from({length:10}, (_,i) => `<div class="glass ${i < data.water ? 'filled' : ''}" onclick="toggleGlass(${i})">💧</div>`).join('');
+  updateWaterCount(data.water);
+
+  // Notes
+  const notes = S.get('daily_notes_' + todayKey(), '');
+  document.getElementById('daily-notes').value = notes;
+}
+
+function updateMealRow(i) {
+  const checked = document.getElementById('meal-'+i).checked;
+  const info = document.getElementById('mrow-'+i).querySelector('.meal-info');
+  info.classList.toggle('meal-logged', checked);
+}
+
+function saveMeals() {
+  const data = S.get('daily_' + todayKey(), { meals: [false,false,false,false,false], water: 0 });
+  data.meals = Array.from({length:5}, (_,i) => document.getElementById('meal-'+i)?.checked || false);
+  S.set('daily_' + todayKey(), data);
+  const el = document.getElementById('meals-saved');
+  el.style.display = 'inline'; setTimeout(() => el.style.display = 'none', 2000);
+}
+
+function toggleGlass(i) {
+  const data = S.get('daily_' + todayKey(), { meals: [false,false,false,false,false], water: 0 });
+  data.water = (data.water === i+1) ? i : i+1;
+  S.set('daily_' + todayKey(), data);
+  const glasses = document.querySelectorAll('.glass');
+  glasses.forEach((g, idx) => g.classList.toggle('filled', idx < data.water));
+  updateWaterCount(data.water);
+}
+
+function updateWaterCount(n) {
+  document.getElementById('water-count').textContent = `${n} of 10 glasses (${n*8} oz)${n >= 10 ? ' — Goal met! 🎉' : n >= 7 ? ' — Almost there!' : ''}`;
+}
+
+function saveNotes() {
+  S.set('daily_notes_' + todayKey(), document.getElementById('daily-notes').value);
+  const el = document.getElementById('notes-saved');
+  el.style.display = 'inline'; setTimeout(() => el.style.display = 'none', 2000);
+}
+
+// ══════════════════════════════════════════════
+// WEEKLY CHECK-IN
+// ══════════════════════════════════════════════
+function saveWeeklyCheckIn() {
+  const weight = parseFloat(document.getElementById('week-weight').value);
+  const weekNum = parseInt(document.getElementById('week-num').value);
+  if (!weight || !weekNum) { alert('Please enter your week number and weight.'); return; }
+
+  const log = S.get('weekly_log', []);
+  const cfg = getSettings();
+  const prevWeight = log.length ? parseFloat(log[log.length-1].weight) : cfg.startWeight;
+  const lost = prevWeight - weight;
+  const totalLost = cfg.startWeight - weight;
+
+  const entry = {
+    week: weekNum,
+    date: new Date().toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}),
+    weight,
+    lost: lost.toFixed(1),
+    totalLost: totalLost.toFixed(1),
+    meals: document.getElementById('week-meals').value,
+    energy: document.getElementById('week-energy').value,
+    water: document.getElementById('week-water').value,
+    exercise: document.getElementById('week-exercise').value,
+    win: document.getElementById('week-win').value,
+    challenge: document.getElementById('week-challenge').value,
+    notes: document.getElementById('week-notes').value,
+  };
+
+  // Replace if same week, otherwise add
+  const existing = log.findIndex(e => e.week === weekNum);
+  if (existing >= 0) { log[existing] = entry; } else { log.push(entry); }
+  log.sort((a,b) => a.week - b.week);
+  S.set('weekly_log', log);
+
+  const el = document.getElementById('weekly-saved');
+  el.style.display = 'inline'; setTimeout(() => el.style.display = 'none', 3000);
+  renderWeeklyLog();
+}
+
+function renderWeeklyLog() {
+  const log = S.get('weekly_log', []);
+  const tbody = document.getElementById('weekly-log-body');
+  if (!log.length) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--gray);padding:20px;">No check-ins logged yet. Complete your first weekly check-in above!</td></tr>'; return; }
+  tbody.innerHTML = log.slice().reverse().map(e => `
+    <tr>
+      <td><strong>Week ${e.week}</strong></td>
+      <td style="font-size:12px;color:var(--gray);">${e.date}</td>
+      <td><strong>${e.weight}</strong></td>
+      <td style="color:${parseFloat(e.lost)>0?'var(--green)':'var(--red)'};">${parseFloat(e.lost)>0?'−':'+'} ${Math.abs(e.lost)} lbs</td>
+      <td style="color:var(--green);font-weight:600;">${e.totalLost} lbs</td>
+      <td style="font-size:12px;">${e.meals||'—'}</td>
+      <td style="font-size:12px;max-width:180px;">${e.win||'—'}</td>
+    </tr>
+  `).join('');
+}
+
+function clearWeeklyLog() {
+  if (confirm('Delete all weekly log data? This cannot be undone.')) {
+    S.del('weekly_log');
+    renderWeeklyLog();
+  }
+}
+
+// ══════════════════════════════════════════════
+// FOOD GUIDE
+// ══════════════════════════════════════════════
+let foodFilter = 'all';
+let foodSearch = '';
+
+function renderFoodTable() {
+  const tbody = document.getElementById('food-tbody');
+  const rows = FOOD_DATA.filter(f => {
+    const matchCat = foodFilter === 'all' || f.cat === foodFilter;
+    const matchSearch = !foodSearch || f.cat.toLowerCase().includes(foodSearch) || f.eat.toLowerCase().includes(foodSearch) || f.avoid.toLowerCase().includes(foodSearch);
+    return matchCat && matchSearch;
+  });
+  if (!rows.length) { tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:var(--gray);padding:20px;">No results found.</td></tr>'; return; }
+  tbody.innerHTML = rows.map(f => `
+    <tr>
+      <td><strong>${f.cat}</strong></td>
+      <td style="color:#1b5e20;">${f.eat}</td>
+      <td style="color:var(--red);">${f.avoid}</td>
+    </tr>
+  `).join('');
+}
+
+function setFoodFilter(val, el) {
+  foodFilter = val;
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderFoodTable();
+}
+
+function filterFood() {
+  foodSearch = document.getElementById('food-search').value.toLowerCase();
+  renderFoodTable();
+}
+
+// ══════════════════════════════════════════════
+// RECIPES
+// ══════════════════════════════════════════════
+function renderRecipes() {
+  document.getElementById('recipe-grid').innerHTML = RECIPES.map((r, i) => `
+    <div class="recipe-card" id="recipe-${i}" onclick="toggleRecipe(${i})">
+      <div class="recipe-emoji">${r.emoji}</div>
+      <div class="recipe-name">${r.name}</div>
+      <div class="recipe-meta">${r.meal} · ⏱ ${r.time}</div>
+      <div class="recipe-body">
+        <div class="recipe-section">Ingredients</div>
+        <ul>${r.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+        <div class="recipe-section">Instructions</div>
+        <ol>${r.instructions.map(s => `<li>${s}</li>`).join('')}</ol>
+        ${r.tips ? `<div class="recipe-section">Pro Tip</div><p>💡 ${r.tips}</p>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleRecipe(i) {
+  document.getElementById('recipe-' + i).classList.toggle('open');
+}
+
+// ══════════════════════════════════════════════
+// AI COACH
+// ══════════════════════════════════════════════
+const COACH_SYSTEM = `You are a personal Awaken 180° weight loss coach for Mike Farley, a 61-year-old male, 6'2", who started the program on April 6, 2026 at 380 lbs with a goal of 265 lbs. He is following a DIY version of the Awaken 180° protocol.
+
+THE PROGRAM:
+- Low-carb, high-protein ketogenic-style diet
+- 5 small protein-rich meals per day, spaced 3 hours apart
+- Approved: lean proteins (chicken, fish, turkey, shrimp, egg whites), non-starchy vegetables (leafy greens, broccoli, cauliflower, cucumbers, bell peppers, zucchini, asparagus, mushrooms), olive oil (1 tsp/meal), black coffee, herbal tea, water, stevia
+- Strictly avoided in Phase 1: all sugars, starches (bread, pasta, rice, potatoes), dairy (except egg whites), alcohol, legumes, fruit (fructose pauses ketosis)
+- High water intake: 80-100+ oz per day
+- Weekly Monday morning weigh-in
+- Light exercise only in weeks 1-4, add resistance training from week 5
+
+YOUR ROLE: Be an encouraging, knowledgeable coach. Give specific, actionable advice. Keep responses concise (2-4 short paragraphs max). Know his stats (starting weight 380, goal 265, age 61, lightly active). When he mentions struggles, acknowledge them and provide practical solutions. Never be preachy or repetitive. Be direct and supportive.`;
+
+let chatHistory = [];
+
+function checkCoachKey() {
+  const cfg = getSettings();
+  const noKey = document.getElementById('coach-no-key');
+  if (!cfg.apiKey) {
+    noKey.style.display = 'block';
+    document.getElementById('chat-send').disabled = true;
+    document.getElementById('chat-input').disabled = true;
+  } else {
+    noKey.style.display = 'none';
+    document.getElementById('chat-send').disabled = false;
+    document.getElementById('chat-input').disabled = false;
+  }
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  const cfg = getSettings();
+  if (!cfg.apiKey) { alert('Please add your Anthropic API key in Settings.'); return; }
+
+  input.value = '';
+  addChatMessage(msg, 'user');
+  chatHistory.push({ role: 'user', content: msg });
+
+  const typing = addTypingIndicator();
+  document.getElementById('chat-send').disabled = true;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': cfg.apiKey,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 600,
+        system: COACH_SYSTEM,
+        messages: chatHistory,
+      })
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error?.message || 'API error');
+
+    const reply = data.content[0].text;
+    chatHistory.push({ role: 'assistant', content: reply });
+    typing.remove();
+    addChatMessage(reply, 'ai');
+  } catch(e) {
+    typing.remove();
+    addChatMessage('Sorry, something went wrong: ' + e.message, 'ai');
+  }
+
+  document.getElementById('chat-send').disabled = false;
+  input.focus();
+}
+
+function addChatMessage(text, role) {
+  const msgs = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'msg msg-' + role;
+  if (role === 'ai') {
+    div.innerHTML = '<strong>Coach</strong><br>' + text.replace(/\n/g, '<br>');
+  } else {
+    div.textContent = text;
+  }
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function addTypingIndicator() {
+  const msgs = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'msg msg-ai';
+  div.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function askCoach(question) {
+  showTab('coach');
+  // Manually trigger tab switch
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-coach').classList.add('active');
+  document.querySelectorAll('.nav-btn')[5].classList.add('active');
+  checkCoachKey();
+  document.getElementById('chat-input').value = question;
+  sendMessage();
+}
+
+// ══════════════════════════════════════════════
+// SETTINGS
+// ══════════════════════════════════════════════
+function loadSettings() {
+  const cfg = getSettings();
+  document.getElementById('s-name').value = cfg.name || 'Mike Farley';
+  document.getElementById('s-start-date').value = cfg.startDate || '2026-04-06';
+  document.getElementById('s-start-weight').value = cfg.startWeight || 380;
+  document.getElementById('s-goal-weight').value = cfg.goalWeight || 265;
+  document.getElementById('s-api-key').value = cfg.apiKey || '';
+}
+
+function saveSettings() {
+  const cfg = {
+    name: document.getElementById('s-name').value,
+    startDate: document.getElementById('s-start-date').value,
+    startWeight: parseFloat(document.getElementById('s-start-weight').value) || 380,
+    goalWeight: parseFloat(document.getElementById('s-goal-weight').value) || 265,
+    apiKey: document.getElementById('s-api-key').value.trim(),
+  };
+  S.set('settings', cfg);
+  const el = document.getElementById('settings-saved');
+  el.style.display = 'inline'; setTimeout(() => el.style.display = 'none', 2000);
+}
+
+function exportData() {
+  const data = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    data[k] = S.get(k);
+  }
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'awaken180_data_' + todayKey() + '.json';
+  a.click();
+}
+
+function clearAllData() {
+  if (confirm('Clear ALL app data? This cannot be undone.')) {
+    localStorage.clear();
+    alert('All data cleared. Reload the page.');
+  }
+}
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  refreshDashboard();
+  initTracker();
+  renderFoodTable();
+  renderRecipes();
+  renderWeeklyLog();
+});
+</script>
+</body>
+</html>
