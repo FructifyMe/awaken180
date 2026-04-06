@@ -193,6 +193,8 @@
     <button class="nav-btn" onclick="showTab('tracker')">✅ Daily Tracker</button>
     <button class="nav-btn" onclick="showTab('weekly')">📅 Weekly Check-in</button>
     <button class="nav-btn" onclick="showTab('program')">📖 The Program</button>
+    <button class="nav-btn" onclick="showTab('products')">🛒 Products</button>
+    <button class="nav-btn" onclick="showTab('restaurants')">🍽️ Restaurants</button>
     <button class="nav-btn" onclick="showTab('foodguide')">🥗 Food Guide</button>
     <button class="nav-btn" onclick="showTab('recipes')">🍳 Recipes</button>
     <button class="nav-btn" onclick="showTab('coach')">🤖 AI Coach</button>
@@ -778,6 +780,569 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PRODUCTS & SUPPLEMENTS
+══════════════════════════════════════════════ -->
+<div id="tab-products" class="tab">
+  <div class="page-header">
+    <h1>Products & Supplements</h1>
+    <p>Awaken 180° products, exact alternatives, grocery staples, and what to supplement.</p>
+  </div>
+
+  <!-- AWAKEN 180 OFFICIAL PRODUCTS -->
+  <div class="card">
+    <div class="card-title">🏷️ Awaken 180°'s Actual Product Line</div>
+    <p style="font-size:14px;color:#444;line-height:1.7;margin-bottom:16px;">
+      Awaken 180° sells their own branded meal replacement products — shakes, soups, bars, puddings, and snacks — which make up roughly 80% of your daily food on the paid program. These are available through the program directly, and some can be found on Amazon. They're convenient but not required — your DIY alternatives are nutritionally equivalent.
+    </p>
+    <div class="table-scroll">
+      <table class="food-table">
+        <thead><tr><th>Product Type</th><th>Awaken 180° Version</th><th>Where to Buy</th><th>Your DIY Alternative</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Protein Shakes</strong><br><small style="color:var(--gray);">Meals 1 & 4</small></td>
+            <td>Branded meal replacement shakes — chocolate, vanilla, strawberry flavors. ~15–20g protein, very low carb, no added sugar.</td>
+            <td>Awaken 180° directly; some on Amazon search "Awaken 180 shake"</td>
+            <td><strong>Optimum Nutrition Gold Standard Whey</strong> or <strong>Isopure Zero Carb</strong> — available at Walmart, Target, Costco, GNC, Amazon</td>
+          </tr>
+          <tr>
+            <td><strong>Soups / Chili</strong><br><small style="color:var(--gray);">Meal 2 or anytime</small></td>
+            <td>Powdered soups reconstituted with hot water — chicken, tomato, broccoli cheddar flavors. High protein, very low carb.</td>
+            <td>Through Awaken 180° program only</td>
+            <td><strong>Kettle & Fire Bone Broth</strong> + shredded chicken. Or <strong>Premier Protein Clear</strong> for a lighter option. Walmart, Target, Costco.</td>
+          </tr>
+          <tr>
+            <td><strong>Protein Bars</strong><br><small style="color:var(--gray);">Meal 2 or snack</small></td>
+            <td>Branded bars — low sugar, high protein, chewy texture. Similar macro profile to Quest bars.</td>
+            <td>Through Awaken 180° program; check Amazon</td>
+            <td><strong>Quest Bars</strong> (best match — 20g protein, &lt;5g sugar) or <strong>Built Bars</strong>. Walmart, Target, Costco, CVS, Walgreens, Amazon.</td>
+          </tr>
+          <tr>
+            <td><strong>Puddings / Desserts</strong><br><small style="color:var(--gray);">Treat / Meal 4</small></td>
+            <td>High-protein pudding cups or powder-based puddings. Chocolate and vanilla.</td>
+            <td>Through Awaken 180° program</td>
+            <td>Mix vanilla whey protein + small splash of unsweetened almond milk into thick pudding consistency. Or <strong>Jello Sugar Free pudding</strong> + unflavored whey stirred in.</td>
+          </tr>
+          <tr>
+            <td><strong>Snacks / Crisps</strong><br><small style="color:var(--gray);">Emergency snack</small></td>
+            <td>Low-carb protein crisps or puffs — savory flavors like ranch, BBQ. Very low carb.</td>
+            <td>Through Awaken 180° program</td>
+            <td><strong>Quest Protein Chips</strong> or <strong>Wilde Protein Chips</strong>. Target, Walmart, Amazon.</td>
+          </tr>
+          <tr>
+            <td><strong>Hot Drinks / Coffee</strong><br><small style="color:var(--gray);">Anytime</small></td>
+            <td>Low-carb flavored coffee drinks, some with added protein.</td>
+            <td>Through Awaken 180° program</td>
+            <td>Black coffee + sugar-free flavored syrup (Torani Sugar Free). Or <strong>Laird Superfood Unsweetened Creamer</strong> (tiny splash). Starbucks Pike Place black.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:var(--gold-pale);border-left:4px solid var(--gold);border-radius:8px;padding:12px;margin-top:16px;">
+      <strong style="color:var(--gold);">💡 Can you buy Awaken 180° products through a friend?</strong>
+      <p style="font-size:13px;color:#555;margin-top:4px;">Yes — if you know someone enrolled in the program, they can often purchase extra products. The products themselves are solid but not magic. Your DIY equivalents hit the same protein target and macro profile for a fraction of the cost.</p>
+    </div>
+  </div>
+
+  <!-- PROTEIN POWDERS -->
+  <div class="card">
+    <div class="card-title">💪 Best Protein Powders — Side by Side</div>
+    <p style="font-size:14px;color:#444;margin-bottom:16px;">For Meals 1 and 4, you want a protein powder that is high in protein, very low in carbs, and has no added sugar. Here are the top options available at any major grocery store or retailer:</p>
+    <div class="table-scroll">
+      <table class="food-table">
+        <thead><tr><th>Brand</th><th>Best Flavor</th><th>Why It's Good</th><th>Where to Buy</th><th>Price Est.</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Optimum Nutrition Gold Standard Whey</strong></td>
+            <td>Double Rich Chocolate, Vanilla Ice Cream</td>
+            <td>The gold standard — mixes clean, tastes great, trusted for 30+ years. ~24g protein per scoop, ~1–3g carbs.</td>
+            <td>Walmart, Target, Costco, GNC, Amazon</td>
+            <td>~$35–55 / 2 lb</td>
+          </tr>
+          <tr>
+            <td><strong>Isopure Zero Carb</strong></td>
+            <td>Chocolate Coconut, Dutch Chocolate</td>
+            <td>Literally zero carbs per serving. ~25g protein. Best for strictest Phase 1 compliance. Unflavored option available.</td>
+            <td>GNC, Vitamin Shoppe, Amazon, Target</td>
+            <td>~$40–60 / 1.6 lb</td>
+          </tr>
+          <tr>
+            <td><strong>Dymatize ISO100</strong></td>
+            <td>Gourmet Chocolate, Fruity Pebbles</td>
+            <td>Hydrolyzed whey — absorbs fastest. ~25g protein, ~1g carb. Very smooth texture.</td>
+            <td>Walmart, Amazon, GNC</td>
+            <td>~$45–65 / 1.6 lb</td>
+          </tr>
+          <tr>
+            <td><strong>Fairlife Core Power (ready-to-drink)</strong></td>
+            <td>Chocolate, Vanilla, Strawberry Banana</td>
+            <td>Pre-made shake — grab and go, no mixing. ~26g protein. Available at virtually every gas station and grocery store.</td>
+            <td>7-Eleven, Walgreens, CVS, Walmart, Target, Costco</td>
+            <td>~$3–4 each / ~$30 for 12-pack</td>
+          </tr>
+          <tr>
+            <td><strong>Premier Protein (ready-to-drink)</strong></td>
+            <td>Chocolate, Caramel, Peaches & Cream</td>
+            <td>30g protein, 1g sugar, great value. The most widely available RTD shake in America. Ideal Meal 1 when traveling.</td>
+            <td>Costco (best price), Sam's Club, Walmart, Target, CVS</td>
+            <td>~$25–30 for 18-pack at Costco</td>
+          </tr>
+          <tr>
+            <td><strong>Naked Whey (unflavored)</strong></td>
+            <td>Unflavored</td>
+            <td>Just whey protein, nothing else. Mix into anything. ~25g protein. Best for savory uses (add to soups, egg whites).</td>
+            <td>Amazon, Whole Foods, Sprouts</td>
+            <td>~$50 / 2 lb</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PROTEIN BARS -->
+  <div class="card">
+    <div class="card-title">🍫 Best Protein Bars for the Program</div>
+    <p style="font-size:14px;color:#444;margin-bottom:12px;">Look for: <strong>high protein (15g+), low sugar (&lt;5g), low net carbs</strong>. These are the best options available at major retailers:</p>
+    <div class="table-scroll">
+      <table class="food-table">
+        <thead><tr><th>Brand</th><th>Best Flavors</th><th>Why It Works</th><th>Where to Buy</th><th>Caution</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Quest Bars ⭐ Top Pick</strong></td>
+            <td>Chocolate Chip Cookie Dough, Cookies & Cream, S'mores</td>
+            <td>~20g protein, ~1g sugar, ~4g net carbs. Closest match to Awaken 180° bars. Widely available everywhere.</td>
+            <td>Walmart, Target, CVS, Walgreens, 7-Eleven, Costco, GNC, Amazon</td>
+            <td>Some flavors have slightly higher carbs — check the label. Stick to &lt;5g sugar.</td>
+          </tr>
+          <tr>
+            <td><strong>Built Bars ⭐ Top Pick</strong></td>
+            <td>Peppermint Brownie, Salted Caramel, Double Chocolate</td>
+            <td>~17–21g protein, ~1g sugar. Softer, more candy-bar texture. Many people prefer these over Quest.</td>
+            <td>Walmart, Target, Amazon, builtbar.com</td>
+            <td>Order online for best variety and price.</td>
+          </tr>
+          <tr>
+            <td><strong>ONE Bars</strong></td>
+            <td>Birthday Cake, Maple Glazed Donut, Almond Bliss</td>
+            <td>~20g protein, 1g sugar. Dessert-like. Good variety of flavors.</td>
+            <td>Walmart, Target, CVS, Walgreens, Amazon</td>
+            <td>Check for artificial sweetener tolerance.</td>
+          </tr>
+          <tr>
+            <td><strong>Kirkland Protein Bars (Costco)</strong></td>
+            <td>Chocolate Chip Cookie Dough, Cookies & Cream</td>
+            <td>~21g protein, 1g sugar. Essentially Quest bars in Costco packaging at much lower cost.</td>
+            <td>Costco only</td>
+            <td>Best value — buy in bulk here.</td>
+          </tr>
+          <tr>
+            <td><strong>RXBARs</strong></td>
+            <td>Chocolate Sea Salt, Blueberry</td>
+            <td>Clean ingredients (egg whites, nuts, dates). ~12g protein, no artificial sweeteners.</td>
+            <td>Everywhere — Target, Walmart, Whole Foods, gas stations</td>
+            <td>Higher carbs (~20g net) from dates. Use sparingly in Phase 1 — better for Phase 2.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- GROCERY STAPLES -->
+  <div class="card">
+    <div class="card-title">🛒 Your Complete Grocery List by Store</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div style="background:var(--green-pale);border-radius:10px;padding:16px;">
+        <div style="font-weight:700;color:var(--green);margin-bottom:10px;">🏪 Walmart / Target (Weekly)</div>
+        <ul style="font-size:13px;color:#444;line-height:1.9;padding-left:14px;">
+          <li>Chicken breast (family pack — freeze extras)</li>
+          <li>Cod or tilapia fillets (frozen section)</li>
+          <li>Shrimp (frozen, peeled & deveined)</li>
+          <li>Lean ground turkey (93% lean)</li>
+          <li>Carton egg whites (Great Value brand)</li>
+          <li>Baby spinach (large bag)</li>
+          <li>Broccoli florets (bag or fresh)</li>
+          <li>Bell peppers (3-pack)</li>
+          <li>Zucchini, cucumber, mushrooms</li>
+          <li>Quest or ONE protein bars</li>
+          <li>Premier Protein shakes (ready-to-drink)</li>
+          <li>Sparkling water (LaCroix / store brand)</li>
+          <li>Coconut aminos (soy sauce alternative)</li>
+          <li>Hot sauce (Cholula, Frank's — check label)</li>
+        </ul>
+      </div>
+      <div style="background:var(--green-pale);border-radius:10px;padding:16px;">
+        <div style="font-weight:700;color:var(--green);margin-bottom:10px;">🏪 Costco / Sam's Club (Monthly)</div>
+        <ul style="font-size:13px;color:#444;line-height:1.9;padding-left:14px;">
+          <li>Kirkland protein bars (Quest equivalent)</li>
+          <li>Premier Protein shakes (18-pack)</li>
+          <li>Fairlife Core Power shakes</li>
+          <li>Chicken breast (10 lb bag — freeze in portions)</li>
+          <li>Salmon fillets (frozen, individually wrapped)</li>
+          <li>Wild-caught tuna pouches (StarKist in water)</li>
+          <li>Extra virgin olive oil (large bottle)</li>
+          <li>Optimum Nutrition whey protein</li>
+          <li>Multivitamin (Kirkland brand)</li>
+          <li>Fish oil softgels</li>
+          <li>Whole almonds (small handful = emergency snack)</li>
+        </ul>
+      </div>
+      <div style="background:var(--green-pale);border-radius:10px;padding:16px;">
+        <div style="font-weight:700;color:var(--green);margin-bottom:10px;">🏪 CVS / Walgreens / Rite Aid</div>
+        <ul style="font-size:13px;color:#444;line-height:1.9;padding-left:14px;">
+          <li>Quest bars (impulse buy on the go)</li>
+          <li>Premier Protein shakes (when traveling)</li>
+          <li>Fairlife Core Power shakes</li>
+          <li>LMNT or Liquid IV electrolytes (sugar-free)</li>
+          <li>Magnesium glycinate supplement</li>
+          <li>Multivitamin (One A Day Men's 50+)</li>
+          <li>Beef jerky (check: no sugar added — Jack Link's Original)</li>
+        </ul>
+      </div>
+      <div style="background:var(--green-pale);border-radius:10px;padding:16px;">
+        <div style="font-weight:700;color:var(--green);margin-bottom:10px;">🏪 Whole Foods / Sprouts (Special Finds)</div>
+        <ul style="font-size:13px;color:#444;line-height:1.9;padding-left:14px;">
+          <li>Kettle & Fire Bone Broth (chicken & beef)</li>
+          <li>Wild Planet canned tuna & salmon</li>
+          <li>Siete Coconut Aminos</li>
+          <li>Primal Kitchen products (check labels)</li>
+          <li>Epic Protein Bars (meat-based, no sugar)</li>
+          <li>Vital Proteins Collagen Peptides (add to shakes)</li>
+          <li>Chosen Foods Avocado Oil spray</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUPPLEMENTS -->
+  <div class="card">
+    <div class="card-title">💊 Supplement Stack for the Program</div>
+    <p style="font-size:14px;color:#444;margin-bottom:16px;">The Awaken 180° program recommends supplements as part of the protocol. These are the DIY equivalents — all available at Walmart, Costco, or Amazon. <strong>Always confirm with your doctor before starting any supplement, especially given your starting point.</strong></p>
+
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:var(--green-pale);border-radius:10px;">
+        <div style="font-size:28px;">💊</div>
+        <div>
+          <div style="font-weight:700;color:var(--green);">Multivitamin — Daily, with Meal 1</div>
+          <p style="font-size:13px;color:#444;margin-top:4px;line-height:1.7;">Low-carb diets can deplete micronutrients. A good multi covers the gaps. <strong>Best picks:</strong> One A Day Men's 50+ (Costco, Walmart), Kirkland Daily Multi (Costco), or Garden of Life Vitamin Code Men 50+ (Whole Foods, Amazon). Take with your first meal so it doesn't upset your stomach.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:var(--green-pale);border-radius:10px;">
+        <div style="font-size:28px;">⚡</div>
+        <div>
+          <div style="font-weight:700;color:var(--green);">Electrolytes — Daily, especially Weeks 1–4</div>
+          <p style="font-size:13px;color:#444;margin-top:4px;line-height:1.7;">When glycogen depletes, the kidneys excrete sodium and pull magnesium and potassium with it. This causes the "keto flu" — fatigue, dizziness, muscle cramps, headaches. Fix it with electrolytes. <strong>Best options:</strong> <em>LMNT</em> (no sugar, available at Target/Amazon — best option), <em>Liquid IV Sugar-Free</em> (Costco, Target), or plain salt (sea salt on your food) + magnesium below.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:var(--green-pale);border-radius:10px;">
+        <div style="font-size:28px;">🌙</div>
+        <div>
+          <div style="font-weight:700;color:var(--green);">Magnesium Glycinate — Nightly, before bed</div>
+          <p style="font-size:13px;color:#444;margin-top:4px;line-height:1.7;">Magnesium is the most depleted mineral on a low-carb diet. It also improves sleep quality and reduces nighttime muscle cramps. The glycinate form is the most bioavailable and gentlest on digestion. <strong>Best picks:</strong> Doctor's Best Magnesium Glycinate (Amazon), Nature Made Magnesium Glycinate (Walmart, Target). Take 200–400mg at bedtime.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:var(--green-pale);border-radius:10px;">
+        <div style="font-size:28px;">🐟</div>
+        <div>
+          <div style="font-weight:700;color:var(--green);">Omega-3 Fish Oil — Daily, with a meal</div>
+          <p style="font-size:13px;color:#444;margin-top:4px;line-height:1.7;">Supports fat metabolism, heart health, and reduces inflammation. Especially valuable at 61. <strong>Best picks:</strong> Nordic Naturals Omega-3 (Costco, Whole Foods), Kirkland Fish Oil (Costco — best value), Nature Made Fish Oil (Walmart, Target). Take with food to avoid fish burps.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:var(--green-pale);border-radius:10px;">
+        <div style="font-size:28px;">☀️</div>
+        <div>
+          <div style="font-weight:700;color:var(--green);">Vitamin D3 + K2 — Daily, with a meal</div>
+          <p style="font-size:13px;color:#444;margin-top:4px;line-height:1.7;">The majority of American adults over 60 are Vitamin D deficient. D3 supports bone density (critical during significant weight loss), immune function, and mood. K2 ensures the calcium goes to your bones, not your arteries. <strong>Best picks:</strong> Life Extension D3 + K2 (Amazon), Sports Research D3 + K2 (Amazon, Target). Your doctor can test your D levels and recommend the right amount.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:#e3f2fd;border-radius:10px;">
+        <div style="font-size:28px;">🦴</div>
+        <div>
+          <div style="font-weight:700;color:#1565c0;">Collagen Peptides — Optional, add to shakes</div>
+          <p style="font-size:13px;color:#444;margin-top:4px;line-height:1.7;">As significant fat loss occurs, collagen supports skin elasticity, joint health, and connective tissue — especially relevant when losing a large amount of weight. Unflavored collagen powder dissolves invisibly into hot or cold liquids. <strong>Best picks:</strong> Vital Proteins Collagen Peptides (Target, Whole Foods, Costco), Great Lakes Collagen (Amazon). Stir a scoop into your morning protein shake.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMERGENCY SNACKS -->
+  <div class="card">
+    <div class="card-title">🚨 Emergency On-the-Go Options</div>
+    <p style="font-size:14px;color:#444;margin-bottom:12px;">When you're stuck, traveling, or forgot to prep — these are available at almost any gas station, convenience store, or airport:</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;">
+      <div style="background:var(--gray-light);border-radius:8px;padding:12px;font-size:13px;"><strong>Premier Protein shake</strong><br>7-Eleven, gas stations, CVS, Walgreens everywhere. Best emergency meal.</div>
+      <div style="background:var(--gray-light);border-radius:8px;padding:12px;font-size:13px;"><strong>Fairlife Core Power</strong><br>Most gas stations, convenience stores. High protein, grab and go.</div>
+      <div style="background:var(--gray-light);border-radius:8px;padding:12px;font-size:13px;"><strong>Quest bar</strong><br>CVS, Walgreens, 7-Eleven, gas stations. Best bar option in a pinch.</div>
+      <div style="background:var(--gray-light);border-radius:8px;padding:12px;font-size:13px;"><strong>Hard-boiled eggs</strong><br>7-Eleven, Wawa, Sheetz, most gas station chains sell them pre-peeled.</div>
+      <div style="background:var(--gray-light);border-radius:8px;padding:12px;font-size:13px;"><strong>Jack Link's Beef Jerky</strong><br>"Original" flavor — no sugar added. Gas stations, everywhere. Solid protein.</div>
+      <div style="background:var(--gray-light);border-radius:8px;padding:12px;font-size:13px;"><strong>StarKist Tuna pouch</strong><br>Convenience stores, Walmart. 100% protein, zero carbs. Keep 3 in your car.</div>
+      <div style="background:var(--gray-light);border-radius:8px;padding:12px;font-size:13px;"><strong>String cheese</strong><br>⚠️ Dairy — use sparingly in Phase 1. But in a true emergency, it's better than going hungry.</div>
+      <div style="background:var(--gray-light);border-radius:8px;padding:12px;font-size:13px;"><strong>Rotisserie chicken</strong><br>Any grocery store deli. Eat the white meat only (no skin, no glazed seasoning).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     RESTAURANT GUIDE
+══════════════════════════════════════════════ -->
+<div id="tab-restaurants" class="tab">
+  <div class="page-header">
+    <h1>Restaurant Guide</h1>
+    <p>How to eat out at any restaurant and stay on protocol. Every chain covered.</p>
+  </div>
+
+  <div class="card" style="background:var(--green-pale);">
+    <div class="card-title">🎯 The Universal Strategy</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+      <div style="background:white;border-radius:8px;padding:12px;font-size:13px;"><strong style="color:var(--green);">1. Look up the menu first.</strong><br>Google the restaurant before you go. Decide your order before you sit down. No impulse decisions at the table.</div>
+      <div style="background:white;border-radius:8px;padding:12px;font-size:13px;"><strong style="color:var(--green);">2. Build a protein + veg plate.</strong><br>At any restaurant: grilled/baked protein + steamed or roasted vegetables. Every kitchen in America can do this.</div>
+      <div style="background:white;border-radius:8px;padding:12px;font-size:13px;"><strong style="color:var(--green);">3. Sauce on the side. Always.</strong><br>Dip your fork, don't pour. Most sauces are loaded with sugar. Lemon juice, hot sauce, mustard, or olive oil are your safe bets.</div>
+      <div style="background:white;border-radius:8px;padding:12px;font-size:13px;"><strong style="color:var(--green);">4. Swap the starch.</strong><br>"Can I sub extra vegetables or a side salad for the rice/potato/pasta?" Every restaurant says yes to this.</div>
+      <div style="background:white;border-radius:8px;padding:12px;font-size:13px;"><strong style="color:var(--green);">5. Don't touch the bread basket.</strong><br>Ask them not to bring it. Out of sight, out of mind. This isn't willpower — it's environment design.</div>
+      <div style="background:white;border-radius:8px;padding:12px;font-size:13px;"><strong style="color:var(--green);">6. Eat before you arrive.</strong><br>Have Meal 3 or 4 before a dinner out. Arriving not hungry is your best weapon against bad decisions.</div>
+    </div>
+  </div>
+
+  <!-- STEAKHOUSES -->
+  <div class="card">
+    <div class="card-title">🥩 Steakhouses — Your Best Friends</div>
+    <p style="font-size:13px;color:#444;margin-bottom:12px;">Steakhouses are the easiest restaurants to navigate on this program. Protein is the main event and vegetables are always available.</p>
+    <div class="table-scroll">
+      <table class="food-table">
+        <thead><tr><th>Chain</th><th>✅ Order This</th><th>❌ Skip This</th><th>Pro Tip</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Outback Steakhouse</strong></td>
+            <td>Victoria's Filet (6 or 9 oz), Grilled Chicken on the Barbie, Grilled Salmon, steamed broccoli or mixed veggies as sides</td>
+            <td>Bread/Bloomin' Onion before the meal, loaded baked potato, pasta sides</td>
+            <td>Ask for no butter on the steak. Request "steamed vegetables no butter" for sides.</td>
+          </tr>
+          <tr>
+            <td><strong>LongHorn Steakhouse</strong></td>
+            <td>Flo's Filet, Grilled White Cheddar Stuffed Mushrooms (skip the cheese), Renegade Sirloin, Fire-Grilled Corn (skip in Phase 1), steamed broccoli</td>
+            <td>Mac & cheese side, mashed potatoes, any breaded items</td>
+            <td>LongHorn has an excellent "Fresh Sides" menu — most vegetables are safe.</td>
+          </tr>
+          <tr>
+            <td><strong>Texas Roadhouse</strong></td>
+            <td>Grilled Chicken, Herb Crusted Chicken, Dallas Filet, grilled shrimp, steamed vegetables</td>
+            <td>Famous fresh bread (tell them not to bring it), loaded sweet potato, any fried items</td>
+            <td>The bread basket is the #1 danger here. Be direct: "Please don't bring the bread."</td>
+          </tr>
+          <tr>
+            <td><strong>Ruth's Chris / Capital Grille</strong></td>
+            <td>Any filet, any fish entrée, asparagus, sautéed spinach, broccoli</td>
+            <td>Au gratin potatoes, creamed spinach (dairy), bread service</td>
+            <td>Upscale steakhouses will accommodate any request. Ask for everything "plain, no butter sauce."</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SEAFOOD -->
+  <div class="card">
+    <div class="card-title">🐟 Seafood Restaurants</div>
+    <div class="table-scroll">
+      <table class="food-table">
+        <thead><tr><th>Chain</th><th>✅ Order This</th><th>❌ Skip This</th><th>Pro Tip</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Red Lobster</strong></td>
+            <td>Grilled Salmon, Wood-Grilled Lobster Tail, Steamed Snow Crab Legs, Garlic-Grilled Jumbo Shrimp, Steamed Broccoli</td>
+            <td>Cheddar Bay Biscuits (don't even let them land on the table), Lobster bisque (cream-based), popcorn shrimp (breaded), coleslaw</td>
+            <td>Crab and lobster are zero carb. Ask for drawn butter on the side and use sparingly or skip.</td>
+          </tr>
+          <tr>
+            <td><strong>Bonefish Grill</strong></td>
+            <td>Grilled fish (salmon, tuna, mahi-mahi), Shrimp & Scallop Skewer, mixed greens salad (dressing on side), steamed green beans</td>
+            <td>Bang Bang Shrimp (sweet sauce), bread service, pasta dishes</td>
+            <td>Ask for the Lily's Chicken or any grilled fish "dry" (no butter finish). One of the better upscale chain options.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CASUAL DINING -->
+  <div class="card">
+    <div class="card-title">🍴 Casual Dining Chains</div>
+    <div class="table-scroll">
+      <table class="food-table">
+        <thead><tr><th>Chain</th><th>✅ Order This</th><th>❌ Skip This</th><th>Pro Tip</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Chili's</strong></td>
+            <td>Grilled Chicken, Classic Sirloin, Grilled Salmon, fajita meat without the tortillas/rice/beans, steamed broccoli, side salad</td>
+            <td>Chips & salsa, quesadillas, pasta, any fried appetizers, the Presidente margarita</td>
+            <td>Order fajitas and ask for extra bell peppers/onions, no tortillas/rice/beans. Gets you a perfect plate.</td>
+          </tr>
+          <tr>
+            <td><strong>Applebee's</strong></td>
+            <td>Grilled Chicken Breast, Classic Sirloin, Cedar Salmon, salads (dressing on side), steamed broccoli</td>
+            <td>Riblets, any pasta, chips & queso, cheesy apps</td>
+            <td>The "under 550" menu is a starting point — just swap any sides for vegetables.</td>
+          </tr>
+          <tr>
+            <td><strong>TGI Fridays</strong></td>
+            <td>Grilled Chicken, Atlantic Salmon, Sizzling Chicken & Shrimp (no sauce), house salad</td>
+            <td>Jack Daniel's sauces (very high sugar), potato skins, loaded apps</td>
+            <td>Ask for protein "plain" or with just lemon and olive oil. Their sauces are almost all off-plan.</td>
+          </tr>
+          <tr>
+            <td><strong>Olive Garden</strong></td>
+            <td>Herb-Grilled Salmon, Chicken Margherita (hold the mozzarella), Grilled Chicken Caesar Salad (no croutons, dressing on side)</td>
+            <td>Everything breadstick-related, soup (cream-based), all pasta, tiramisu</td>
+            <td>Tell your server "No breadsticks, please" immediately. They will keep bringing them otherwise.</td>
+          </tr>
+          <tr>
+            <td><strong>Denny's</strong></td>
+            <td>Egg white veggie omelette (no cheese), grilled chicken breast, sirloin steak with eggs, side salad</td>
+            <td>Pancakes, syrup, hash browns, toast, any breakfast combo with starches</td>
+            <td>Denny's is actually great for breakfast — egg whites scrambled with vegetables is a perfect Meal 1.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FAST CASUAL -->
+  <div class="card">
+    <div class="card-title">⚡ Fast Casual — Quick & On Protocol</div>
+    <div class="table-scroll">
+      <table class="food-table">
+        <thead><tr><th>Chain</th><th>✅ Your Order</th><th>❌ Skip</th><th>Exact Order</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Chipotle ⭐</strong></td>
+            <td>Salad bowl with double chicken or steak, fajita vegetables, tomato salsa, lettuce. Add guacamole.</td>
+            <td>Tortilla, rice, beans, corn, sour cream, cheese, queso</td>
+            <td>"Salad bowl — chicken, fajita veggies, fresh tomato salsa, lettuce, guac." Done. One of the best fast casual options on this program.</td>
+          </tr>
+          <tr>
+            <td><strong>Panera Bread</strong></td>
+            <td>Green Goddess Cobb Salad with chicken (no dressing or olive oil on side), You Pick Two with half a salad</td>
+            <td>Bread bowl, mac & cheese, most soups (cream-based), pastries</td>
+            <td>The chicken-based salads are solid. Ask for no croutons, dressing on the side.</td>
+          </tr>
+          <tr>
+            <td><strong>Subway</strong></td>
+            <td>Protein bowl (no bread) — rotisserie chicken or turkey, any vegetables, oil & vinegar dressing</td>
+            <td>All bread, wraps, most sauces (ranch, honey mustard), chips, cookies</td>
+            <td>Ask for "protein bowl" — they put everything in a bowl with no bread. Unlimited veggies. Solid Meal 3 option.</td>
+          </tr>
+          <tr>
+            <td><strong>Sweetgreen</strong></td>
+            <td>Shroomami (sub chicken for mushrooms), Harvest Bowl (no wild rice), Kale Caesar (no croutons, no pecorino)</td>
+            <td>Anything with rice, tortilla chips, croutons, sweet dressings</td>
+            <td>Build your own: greens + warm protein (chicken, shrimp) + roasted vegetables + lemon squeeze. Perfect.</td>
+          </tr>
+          <tr>
+            <td><strong>Shake Shack</strong></td>
+            <td>Burger Lettuce Wrap ("no bun, lettuce wrap"), grilled chicken sandwich lettuce wrap</td>
+            <td>Buns, fries, milkshakes, crinkle cuts</td>
+            <td>"SmokeShack, no bun, lettuce wrap, no sauce." They do it all the time. Add mustard only.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ASIAN -->
+  <div class="card">
+    <div class="card-title">🥢 Asian & Mexican Chains</div>
+    <div class="table-scroll">
+      <table class="food-table">
+        <thead><tr><th>Chain</th><th>✅ Order This</th><th>❌ Skip This</th><th>Pro Tip</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>P.F. Chang's</strong></td>
+            <td>Lettuce wraps (use leaves, skip the fried rice filling carbs), steamed fish, Chang's Chicken (ask for no corn starch sauce), Wok-Seared Lamb</td>
+            <td>Fried rice, lo mein, spring rolls, desserts, sweet sauces</td>
+            <td>Request "no sauce, steamed, with garlic and ginger" on any protein. Their kitchen can accommodate.</td>
+          </tr>
+          <tr>
+            <td><strong>Panda Express</strong></td>
+            <td>Super Greens bowl, String Bean Chicken Breast, Mushroom Chicken, Grilled Teriyaki Chicken (sauce on side)</td>
+            <td>Fried rice, chow mein, orange chicken (high sugar sauce), egg rolls, cream cheese rangoon</td>
+            <td>Order a "bowl" but sub extra Super Greens for both the rice and noodle base. Panda will do this.</td>
+          </tr>
+          <tr>
+            <td><strong>Taco Bell</strong></td>
+            <td>Power Menu Bowl — chicken (hold the rice, beans, sour cream, and cheese), add extra lettuce and tomato</td>
+            <td>Literally everything in a shell/tortilla, nachos, quesadillas, Crunchwrap</td>
+            <td>Power Bowl with chicken, no rice, no beans, no cheese, no sour cream, extra lettuce and tomatoes. It's basically a protein salad.</td>
+          </tr>
+          <tr>
+            <td><strong>Qdoba</strong></td>
+            <td>Protein salad bowl — grilled chicken or steak, fajita vegetables, fresh salsa, lettuce, guacamole</td>
+            <td>Tortilla, rice, beans, queso, sour cream</td>
+            <td>Nearly identical strategy to Chipotle. Qdoba's guacamole is free — use it.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FAST FOOD -->
+  <div class="card">
+    <div class="card-title">🍔 Fast Food — Last Resort Options</div>
+    <p style="font-size:13px;color:#888;margin-bottom:12px;font-style:italic;">Not ideal, but when it's all that's available:</p>
+    <div class="table-scroll">
+      <table class="food-table">
+        <thead><tr><th>Chain</th><th>Best Option</th><th>How to Order</th></tr></thead>
+        <tbody>
+          <tr><td><strong>McDonald's</strong></td><td>Grilled Chicken Salad (no croutons), Egg McMuffin without the muffin (just egg + Canadian bacon)</td><td>"Side salad with grilled chicken, no croutons, oil & vinegar." Or "Egg white delight, no muffin."</td></tr>
+          <tr><td><strong>Wendy's</strong></td><td>Grilled Chicken Sandwich — no bun, lettuce wrap. Power Mediterranean Chicken Salad.</td><td>"Grilled Chicken, no bun, lettuce wrap, no sauce." Wendy's does this cleanly.</td></tr>
+          <tr><td><strong>Chick-fil-A</strong></td><td>Grilled Nuggets, Grilled Chicken Sandwich (no bun), Cobb Salad (no croutons, dressing on side)</td><td>"Grilled nuggets with a side of Superfood Side." One of the cleaner fast food options.</td></tr>
+          <tr><td><strong>In-N-Out</strong></td><td>Hamburger "Protein Style" — no bun, lettuce wrap. Double-Double Protein Style.</td><td>Just say "Protein Style" — they know exactly what it means.</td></tr>
+          <tr><td><strong>Five Guys</strong></td><td>Burger in a bowl — no bun, all toppings on top as a burger bowl</td><td>"Little Burger, no bun, in a bowl." Add mustard, lettuce, tomato, onion, jalapeños.</td></tr>
+          <tr><td><strong>Wingstop / Buffalo Wild Wings</strong></td><td>Traditional (bone-in) wings — naked (no breading), with hot sauce or garlic on side</td><td>"Traditional naked wings, medium or hot sauce on the side." Boneless are breaded — avoid.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DRINKS -->
+  <div class="card">
+    <div class="card-title">🥤 Drinks at Restaurants</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div style="background:var(--green-pale);border-radius:8px;padding:14px;">
+        <div style="font-weight:700;color:var(--green);margin-bottom:8px;">✅ Always Safe</div>
+        <ul style="font-size:13px;color:#444;line-height:1.9;padding-left:14px;">
+          <li>Water (still or sparkling)</li>
+          <li>Black coffee or Americano</li>
+          <li>Unsweetened iced tea</li>
+          <li>Hot green or herbal tea (no honey)</li>
+          <li>Club soda with lemon/lime</li>
+          <li>Diet Coke / Diet Pepsi (occasional use — not ideal but won't stall you)</li>
+        </ul>
+      </div>
+      <div style="background:var(--red-pale);border-radius:8px;padding:14px;">
+        <div style="font-weight:700;color:var(--red);margin-bottom:8px;">❌ Off-Plan</div>
+        <ul style="font-size:13px;color:#444;line-height:1.9;padding-left:14px;">
+          <li>All alcohol (beer, wine, spirits — all of it)</li>
+          <li>Juice of any kind</li>
+          <li>Regular soda</li>
+          <li>Lemonade (even "fresh-squeezed")</li>
+          <li>Sweet tea</li>
+          <li>Specialty coffee drinks (lattes, frappuccinos)</li>
+          <li>Smoothies or açaí bowls</li>
+        </ul>
+      </div>
+    </div>
+    <div style="background:var(--gold-pale);border-left:4px solid var(--gold);border-radius:8px;padding:12px;margin-top:12px;">
+      <strong style="color:var(--gold);">At a social event where everyone is drinking:</strong> Order sparkling water with a lime wedge in a cocktail glass. It looks like a drink, you won't be pressured, and you stay on protocol.
+    </div>
   </div>
 
 </div>
