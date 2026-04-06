@@ -262,7 +262,7 @@
     <div class="card-title">Progress to Goal</div>
     <div class="progress-wrap">
       <div class="progress-label">
-        <span>Start: <strong id="prog-start">380</strong> lbs</span>
+        <span>Start: <strong id="prog-start">295</strong> lbs</span>
         <span id="prog-pct">0%</span>
         <span>Goal: <strong id="prog-goal">265</strong> lbs</span>
       </div>
@@ -1501,7 +1501,7 @@
       <div class="grid-2">
         <div class="form-group">
           <label>Starting Weight (lbs)</label>
-          <input type="number" id="s-start-weight" value="380">
+          <input type="number" id="s-start-weight" value="295">
         </div>
         <div class="form-group">
           <label>Goal Weight (lbs)</label>
@@ -1657,7 +1657,7 @@ const S = {
 };
 
 function getSettings() {
-  return S.get('settings', { name: 'Mike Farley', startDate: '2026-04-06', startWeight: 380, goalWeight: 265, apiKey: '' });
+  return S.get('settings', { name: 'Mike Farley', startDate: '2026-04-06', startWeight: 295, goalWeight: 265, apiKey: '' });
 }
 
 function todayKey() { return new Date().toISOString().split('T')[0]; }
@@ -2001,7 +2001,7 @@ function toggleRecipe(i) {
 // ══════════════════════════════════════════════
 // AI COACH
 // ══════════════════════════════════════════════
-const COACH_SYSTEM = `You are a personal Awaken 180° weight loss coach for Mike Farley, a 61-year-old male, 6'2", who started the program on April 6, 2026 at 380 lbs with a goal of 265 lbs. He is following a DIY version of the Awaken 180° protocol.
+const COACH_SYSTEM = `You are a personal Awaken 180° weight loss coach for Mike Farley, a 61-year-old male, 6'2", who started the program on April 6, 2026 at 295 lbs with a goal of 265 lbs. He is following a DIY version of the Awaken 180° protocol.
 
 THE PROGRAM:
 - Low-carb, high-protein ketogenic-style diet
@@ -2012,7 +2012,7 @@ THE PROGRAM:
 - Weekly Monday morning weigh-in
 - Light exercise only in weeks 1-4, add resistance training from week 5
 
-YOUR ROLE: Be an encouraging, knowledgeable coach. Give specific, actionable advice. Keep responses concise (2-4 short paragraphs max). Know his stats (starting weight 380, goal 265, age 61, lightly active). When he mentions struggles, acknowledge them and provide practical solutions. Never be preachy or repetitive. Be direct and supportive.`;
+YOUR ROLE: Be an encouraging, knowledgeable coach. Give specific, actionable advice. Keep responses concise (2-4 short paragraphs max). Know his stats (starting weight 295, goal 265, age 61, lightly active). When he mentions struggles, acknowledge them and provide practical solutions. Never be preachy or repetitive. Be direct and supportive.`;
 
 let chatHistory = [];
 
@@ -2121,7 +2121,7 @@ function loadSettings() {
   const cfg = getSettings();
   document.getElementById('s-name').value = cfg.name || 'Mike Farley';
   document.getElementById('s-start-date').value = cfg.startDate || '2026-04-06';
-  document.getElementById('s-start-weight').value = cfg.startWeight || 380;
+  document.getElementById('s-start-weight').value = cfg.startWeight || 295;
   document.getElementById('s-goal-weight').value = cfg.goalWeight || 265;
   document.getElementById('s-api-key').value = cfg.apiKey || '';
 }
@@ -2130,7 +2130,7 @@ function saveSettings() {
   const cfg = {
     name: document.getElementById('s-name').value,
     startDate: document.getElementById('s-start-date').value,
-    startWeight: parseFloat(document.getElementById('s-start-weight').value) || 380,
+    startWeight: parseFloat(document.getElementById('s-start-weight').value) || 295,
     goalWeight: parseFloat(document.getElementById('s-goal-weight').value) || 265,
     apiKey: document.getElementById('s-api-key').value.trim(),
   };
