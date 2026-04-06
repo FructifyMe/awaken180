@@ -192,6 +192,7 @@
     <button class="nav-btn active" onclick="showTab('dashboard')">📊 Dashboard</button>
     <button class="nav-btn" onclick="showTab('tracker')">✅ Daily Tracker</button>
     <button class="nav-btn" onclick="showTab('weekly')">📅 Weekly Check-in</button>
+    <button class="nav-btn" onclick="showTab('program')">📖 The Program</button>
     <button class="nav-btn" onclick="showTab('foodguide')">🥗 Food Guide</button>
     <button class="nav-btn" onclick="showTab('recipes')">🍳 Recipes</button>
     <button class="nav-btn" onclick="showTab('coach')">🤖 AI Coach</button>
@@ -396,6 +397,389 @@
       <button class="btn btn-danger btn-sm" onclick="clearWeeklyLog()">Clear All Log Data</button>
     </div>
   </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     THE PROGRAM
+══════════════════════════════════════════════ -->
+<div id="tab-program" class="tab">
+  <div class="page-header">
+    <h1>The Program</h1>
+    <p>Everything you need to know about Awaken 180° and your DIY version of it.</p>
+  </div>
+
+  <!-- Quick-jump anchors -->
+  <div class="card" style="padding:16px 20px;">
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <a href="#prog-what" class="btn btn-secondary btn-sm">What Is Awaken 180°?</a>
+      <a href="#prog-science" class="btn btn-secondary btn-sm">The Science</a>
+      <a href="#prog-diy" class="btn btn-secondary btn-sm">Your DIY Version</a>
+      <a href="#prog-phases" class="btn btn-secondary btn-sm">The Two Phases</a>
+      <a href="#prog-meals" class="btn btn-secondary btn-sm">5-Meal Structure</a>
+      <a href="#prog-rules" class="btn btn-secondary btn-sm">Non-Negotiable Rules</a>
+      <a href="#prog-weekly" class="btn btn-secondary btn-sm">Weekly Routine</a>
+      <a href="#prog-exercise" class="btn btn-secondary btn-sm">Exercise</a>
+      <a href="#prog-plateaus" class="btn btn-secondary btn-sm">Plateaus</a>
+      <a href="#prog-maintenance" class="btn btn-secondary btn-sm">Maintenance</a>
+    </div>
+  </div>
+
+  <!-- WHAT IS AWAKEN 180 -->
+  <div class="card" id="prog-what">
+    <div class="card-title">🏢 What Is Awaken 180°?</div>
+    <p style="font-size:14px;line-height:1.8;color:#444;margin-bottom:12px;">
+      Awaken 180° Weightloss is a commercial weight loss program founded in 2014 and headquartered in the Boston area. It is endorsed by physicians (including Dr. Laura Carman, Internal Medicine, Tufts Medical Center) and registered dietitians. The program typically costs <strong>$1,000–$1,500 per month</strong> and includes weekly one-on-one coaching sessions, proprietary meal replacement products (shakes, soups, bars, puddings), and lifetime maintenance support.
+    </p>
+    <p style="font-size:14px;line-height:1.8;color:#444;margin-bottom:12px;">
+      The program's core claim is that it uses a <strong>medically-designed ketogenic protocol</strong> to shift the body into fat-burning mode while preserving lean muscle mass — without requiring exercise. It combines caloric and carbohydrate restriction with frequent small meals and weekly accountability coaching to produce steady, predictable fat loss.
+    </p>
+    <p style="font-size:14px;line-height:1.8;color:#444;">
+      The program has helped thousands of people lose significant amounts of weight. The structure, accountability, and food simplicity are what make it work — not the proprietary products themselves.
+    </p>
+  </div>
+
+  <!-- THE SCIENCE -->
+  <div class="card" id="prog-science">
+    <div class="card-title">🔬 The Science Behind the Protocol</div>
+    <p style="font-size:14px;line-height:1.8;color:#444;margin-bottom:16px;">
+      The Awaken 180° protocol is built on several well-established principles of metabolism and fat loss:
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div style="background:var(--green-pale);border-radius:10px;padding:16px;">
+        <div style="font-weight:700;color:var(--green);margin-bottom:6px;">⚡ Nutritional Ketosis</div>
+        <p style="font-size:13px;color:#444;line-height:1.6;">When carbohydrate intake is eliminated, the body depletes its glycogen stores within 24–48 hours and switches to burning fat for fuel. This metabolic state — nutritional ketosis — is the engine of the Awaken 180° protocol. The body becomes highly efficient at burning stored body fat.</p>
+      </div>
+      <div style="background:var(--green-pale);border-radius:10px;padding:16px;">
+        <div style="font-weight:700;color:var(--green);margin-bottom:6px;">🥩 Protein Preservation</div>
+        <p style="font-size:13px;color:#444;line-height:1.6;">High protein intake (spread across 5 meals) prevents the body from breaking down muscle tissue for energy during fat loss. This is critical — especially at 61, when muscle loss accelerates naturally. Preserving muscle keeps your resting metabolism high and makes the weight loss sustainable.</p>
+      </div>
+      <div style="background:var(--green-pale);border-radius:10px;padding:16px;">
+        <div style="font-weight:700;color:var(--green);margin-bottom:6px;">🕐 Meal Frequency</div>
+        <p style="font-size:13px;color:#444;line-height:1.6;">Eating every 3 hours keeps insulin levels stable, prevents hunger spikes, and maintains a steady metabolic rate. The 5-meal structure ensures you never go long enough without food that your body triggers stress hormones (cortisol) that slow fat burning and increase fat storage.</p>
+      </div>
+      <div style="background:var(--green-pale);border-radius:10px;padding:16px;">
+        <div style="font-weight:700;color:var(--green);margin-bottom:6px;">💧 Hydration & Detox</div>
+        <p style="font-size:13px;color:#444;line-height:1.6;">When fat is metabolized, byproducts (ketone bodies) must be flushed from the body. High water intake (80–100+ oz daily) supports kidney function, prevents the "keto flu," and directly accelerates fat loss. Dehydration is the #1 silent staller of this protocol.</p>
+      </div>
+      <div style="background:var(--green-pale);border-radius:10px;padding:16px;">
+        <div style="font-weight:700;color:var(--green);margin-bottom:6px;">🧠 Behavioral Accountability</div>
+        <p style="font-size:13px;color:#444;line-height:1.6;">The weekly coaching session in the paid program is where most of the "magic" actually happens. Regular check-ins, progress tracking, and accountability create the behavioral loop that keeps people on protocol. Research consistently shows that accountability doubles long-term weight loss success rates.</p>
+      </div>
+      <div style="background:var(--green-pale);border-radius:10px;padding:16px;">
+        <div style="font-weight:700;color:var(--green);margin-bottom:6px;">🚫 Insulin Management</div>
+        <p style="font-size:13px;color:#444;line-height:1.6;">Insulin is the fat-storage hormone. Every time you eat refined carbohydrates or sugar, insulin spikes and signals the body to store fat. By eliminating all sugars and starches, Awaken 180° keeps insulin consistently low — turning your body into a fat-burning machine around the clock.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- YOUR DIY VERSION -->
+  <div class="card" id="prog-diy">
+    <div class="card-title">🛠️ Your DIY Version — How It Mirrors the Real Program</div>
+    <p style="font-size:14px;line-height:1.8;color:#444;margin-bottom:16px;">
+      The paid Awaken 180° program charges $1,000–$1,500/month largely for proprietary meal replacement products and weekly coaching. Your DIY version replicates <em>every structural element</em> of the program using whole foods and free tools — without paying for the brand name.
+    </p>
+
+    <div class="table-scroll">
+      <table class="food-table">
+        <thead>
+          <tr>
+            <th>Program Element</th>
+            <th>Real Awaken 180° ($1,000+/mo)</th>
+            <th>Your DIY Version (Free)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Meal replacements</strong></td>
+            <td>Branded shakes, soups, bars, puddings (80% of daily food)</td>
+            <td>Whey protein shakes, low-carb protein bars (Quest/RXBar), homemade broth soups</td>
+          </tr>
+          <tr>
+            <td><strong>Self-prepared meals</strong></td>
+            <td>1–2 meals/day: lean protein + vegetables</td>
+            <td>Same — chicken, fish, turkey, shrimp + non-starchy vegetables</td>
+          </tr>
+          <tr>
+            <td><strong>Meal frequency</strong></td>
+            <td>5 small meals, ~3 hours apart</td>
+            <td>Identical — 5 meals, ~3 hours apart</td>
+          </tr>
+          <tr>
+            <td><strong>Food rules</strong></td>
+            <td>No sugar, no starch, no dairy, no alcohol, no fruit (Phase 1)</td>
+            <td>Identical rules — fully replicated</td>
+          </tr>
+          <tr>
+            <td><strong>Weekly coaching</strong></td>
+            <td>1:1 session with a trained Awaken 180° coach</td>
+            <td>Monday morning self-review + AI Coach (this app)</td>
+          </tr>
+          <tr>
+            <td><strong>Progress tracking</strong></td>
+            <td>Body composition scale, weekly number reviews</td>
+            <td>Weekly check-in log, progress chart (this app) + Smartsheet</td>
+          </tr>
+          <tr>
+            <td><strong>Accountability</strong></td>
+            <td>In-person or virtual sessions, coach follow-ups</td>
+            <td>Daily meal tracker, streak counter, weekly log, AI coaching</td>
+          </tr>
+          <tr>
+            <td><strong>Education</strong></td>
+            <td>Coaching on nutrition, restaurants, travel, maintenance</td>
+            <td>Full program plan document + this app's guides</td>
+          </tr>
+          <tr>
+            <td><strong>Lifetime maintenance</strong></td>
+            <td>Free monthly check-ins after goal is reached</td>
+            <td>Phase 2 maintenance plan built into your program</td>
+          </tr>
+          <tr>
+            <td><strong>Cost</strong></td>
+            <td style="color:var(--red);font-weight:700;">$1,000–$1,500/month</td>
+            <td style="color:var(--green);font-weight:700;">~$50–80/month (protein powder + protein bars)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- THE TWO PHASES -->
+  <div class="card" id="prog-phases">
+    <div class="card-title">📋 The Two Phases</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+      <div style="background:var(--green-pale);border-left:4px solid var(--green);border-radius:8px;padding:16px;">
+        <div style="font-weight:800;font-size:16px;color:var(--green);margin-bottom:8px;">Phase 1: Active Fat Loss</div>
+        <p style="font-size:13px;color:#444;line-height:1.7;margin-bottom:8px;">The primary fat-burning phase. Follow the strict protocol until you reach your goal. For your goals, expect approximately 12–18 months of consistent Phase 1.</p>
+        <ul style="font-size:13px;color:#444;line-height:1.9;padding-left:16px;">
+          <li>5 meals per day — no skipping, no combining</li>
+          <li>No starches, sugars, dairy, alcohol, legumes, fruit</li>
+          <li>High water intake every day</li>
+          <li>Monday morning weigh-in</li>
+          <li>Light movement encouraged</li>
+          <li>Expected loss: 1–3 lbs/week after first 2 weeks</li>
+        </ul>
+      </div>
+      <div style="background:#e8f4fd;border-left:4px solid #1565c0;border-radius:8px;padding:16px;">
+        <div style="font-weight:800;font-size:16px;color:#1565c0;margin-bottom:8px;">Phase 2: Maintenance</div>
+        <p style="font-size:13px;color:#444;line-height:1.7;margin-bottom:8px;">Once you hit your goal, transition to a structured maintenance phase. The real Awaken 180° program includes free lifetime maintenance — you replicate this with ongoing monitoring.</p>
+        <ul style="font-size:13px;color:#444;line-height:1.9;padding-left:16px;">
+          <li>Gradual reintroduction of complex carbs</li>
+          <li>Continue protein-first eating pattern</li>
+          <li>Monthly weigh-in instead of weekly</li>
+          <li>Maintain all habits built in Phase 1</li>
+          <li>Return to Phase 1 if weight creeps up</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="background:var(--gold-pale);border-left:4px solid var(--gold);border-radius:8px;padding:14px;">
+      <strong style="color:var(--gold);">Week-by-Week Expectations (Phase 1)</strong>
+      <ul style="font-size:13px;color:#555;line-height:1.9;padding-left:16px;margin-top:6px;">
+        <li><strong>Weeks 1–2:</strong> Rapid water weight loss as glycogen stores deplete. Expect 5–12 lbs. This is real but it's mostly water — don't get overexcited or discouraged when it slows.</li>
+        <li><strong>Weeks 3–4:</strong> Body transitions to true fat burning. Loss slows to 1–3 lbs/week. Energy may dip briefly. Stay the course — this is the real work beginning.</li>
+        <li><strong>Weeks 5–8:</strong> Steady fat loss. Energy improves dramatically. Hunger decreases. Habits start to feel automatic.</li>
+        <li><strong>Weeks 9+:</strong> Consistent fat loss continues. You've built the system. The protocol becomes your lifestyle, not a diet.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 5-MEAL STRUCTURE -->
+  <div class="card" id="prog-meals">
+    <div class="card-title">🍽️ The 5-Meal Daily Structure</div>
+    <p style="font-size:14px;color:#444;line-height:1.7;margin-bottom:16px;">
+      Never go more than 3–4 hours between meals. In the paid program, meals 1, 2, 4, and 5 are typically branded shakes, soups, or bars — and meal 3 is a self-prepared protein + vegetables. Your DIY version mirrors this exactly.
+    </p>
+
+    <table class="food-table">
+      <thead>
+        <tr><th>Meal</th><th>Time</th><th>What It Is</th><th>Your DIY Options</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Meal 1</strong><br><small style="color:var(--gray);">Breakfast</small></td>
+          <td>7–8 AM</td>
+          <td>Protein Shake or Eggs</td>
+          <td>Whey protein shake + water, or 4–6 egg whites scrambled with spinach & mushrooms</td>
+        </tr>
+        <tr>
+          <td><strong>Meal 2</strong><br><small style="color:var(--gray);">Mid-Morning</small></td>
+          <td>10–11 AM</td>
+          <td>Protein Snack</td>
+          <td>Low-carb protein bar (Quest/RXBar, &lt;5g sugar), or 3 oz turkey/chicken breast, or hard-boiled egg whites</td>
+        </tr>
+        <tr>
+          <td><strong>Meal 3</strong><br><small style="color:var(--gray);">Lunch</small></td>
+          <td>1–2 PM</td>
+          <td>Full Protein + Veg Meal</td>
+          <td>6–8 oz chicken, fish, or lean beef + 2 cups non-starchy vegetables, cooked in 1 tsp olive oil</td>
+        </tr>
+        <tr>
+          <td><strong>Meal 4</strong><br><small style="color:var(--gray);">Afternoon</small></td>
+          <td>4–5 PM</td>
+          <td>Protein Shake or Snack</td>
+          <td>Protein shake, or deli turkey (no added sugars), or celery + 2 oz canned tuna</td>
+        </tr>
+        <tr>
+          <td><strong>Meal 5</strong><br><small style="color:var(--gray);">Dinner</small></td>
+          <td>7–8 PM</td>
+          <td>Full Protein + Veg Meal</td>
+          <td>6–8 oz fish, shrimp, or chicken + 2 cups non-starchy vegetables, grilled or roasted</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- NON-NEGOTIABLE RULES -->
+  <div class="card" id="prog-rules">
+    <div class="card-title">⚖️ The Non-Negotiable Rules</div>
+    <p style="font-size:14px;color:#444;margin-bottom:16px;">These are the rules that cannot be bent in Phase 1. Every one of them exists for a specific metabolic reason.</p>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:var(--red-pale);border-radius:8px;">
+        <span style="font-size:20px;flex-shrink:0;">🚫</span>
+        <div><strong style="color:var(--red);">No sugar — ever, in any form.</strong><br><span style="font-size:13px;color:#555;">Sugar spikes insulin, which immediately halts fat burning and switches the body to fat-storage mode. Check every label — sauces, dressings, condiments, protein bars. If a product has more than 5g of sugar per serving, it doesn't belong in Phase 1.</span></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:var(--red-pale);border-radius:8px;">
+        <span style="font-size:20px;flex-shrink:0;">🚫</span>
+        <div><strong style="color:var(--red);">No starches — bread, pasta, rice, potatoes, corn, oats.</strong><br><span style="font-size:13px;color:#555;">Starches convert to glucose rapidly, refilling glycogen stores and kicking you out of ketosis. Even "healthy" starches like sweet potatoes or quinoa pause fat burning in Phase 1. None. Zero. Not even a little.</span></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:var(--red-pale);border-radius:8px;">
+        <span style="font-size:20px;flex-shrink:0;">🚫</span>
+        <div><strong style="color:var(--red);">No alcohol — any kind.</strong><br><span style="font-size:13px;color:#555;">The liver prioritizes metabolizing alcohol above all else, completely pausing fat metabolism for 24–72 hours after consumption. One drink can stall your progress for days. The real Awaken 180° coaches are uncompromising on this.</span></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:var(--red-pale);border-radius:8px;">
+        <span style="font-size:20px;flex-shrink:0;">🚫</span>
+        <div><strong style="color:var(--red);">No dairy (except egg whites).</strong><br><span style="font-size:13px;color:#555;">Dairy contains lactose (a sugar) and can trigger insulin responses even without obvious sweetness. Cheese, yogurt, milk, and cream are all off-limits. Egg whites are the one exception — they are pure protein.</span></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:var(--red-pale);border-radius:8px;">
+        <span style="font-size:20px;flex-shrink:0;">🚫</span>
+        <div><strong style="color:var(--red);">No fruit.</strong><br><span style="font-size:13px;color:#555;">Even low-sugar fruits like berries contain fructose, which is processed by the liver and can pause ketosis. In Phase 1, the protocol is strict about this. Lemon and lime juice in small amounts for seasoning is the only exception.</span></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:var(--red-pale);border-radius:8px;">
+        <span style="font-size:20px;flex-shrink:0;">🚫</span>
+        <div><strong style="color:var(--red);">Never skip a meal.</strong><br><span style="font-size:13px;color:#555;">Going too long without food triggers cortisol (the stress hormone), which promotes fat storage and muscle breakdown — the exact opposite of what you want. The 5-meal structure is not optional. Eat even when you're not hungry.</span></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:var(--green-pale);border-radius:8px;">
+        <span style="font-size:20px;flex-shrink:0;">✅</span>
+        <div><strong style="color:var(--green);">Drink your water. Every day. No exceptions.</strong><br><span style="font-size:13px;color:#555;">80–100+ oz every day. This is the easiest rule and the one people most often skip. Dehydration is the #1 silent staller of fat loss on this protocol. Fill a 32 oz bottle three times a day. Done.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEKLY ROUTINE -->
+  <div class="card" id="prog-weekly">
+    <div class="card-title">📅 Your Weekly Routine</div>
+    <p style="font-size:14px;color:#444;margin-bottom:16px;">The real Awaken 180° program's secret weapon is the weekly coaching session. Your DIY version replaces this with a structured Monday morning self-review.</p>
+
+    <table class="food-table">
+      <thead><tr><th>Day</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Monday AM</strong></td><td>Weigh in (same time, after waking, before eating). Log weight in the Weekly Check-in tab. Review last week. Set intention for this week. Plan meals. Shop.</td></tr>
+        <tr><td><strong>Sunday PM</strong></td><td>2-hour meal prep session: cook bulk proteins, chop vegetables, portion meals into containers. Fill the fridge so the week runs on autopilot.</td></tr>
+        <tr><td><strong>Daily</strong></td><td>Check off each of your 5 meals in the Daily Tracker. Log water glasses. Note how you feel. Set alarms for meal times until it becomes automatic.</td></tr>
+        <tr><td><strong>Anytime</strong></td><td>Use the AI Coach for questions, troubleshooting, restaurant guidance, or motivation. That's what it's there for.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EXERCISE -->
+  <div class="card" id="prog-exercise">
+    <div class="card-title">💪 Exercise — The Awaken 180° Approach</div>
+    <p style="font-size:14px;color:#444;line-height:1.7;margin-bottom:12px;">
+      Awaken 180° takes an unusual and counterintuitive position: <strong>exercise is not required for fat loss on this program.</strong> The dietary protocol alone produces results. In fact, intense exercise in the early weeks can increase hunger, disrupt the protocol, and stall progress.
+    </p>
+    <p style="font-size:14px;color:#444;line-height:1.7;margin-bottom:16px;">
+      That said, movement has profound benefits — especially at 61. Here's the phased approach:
+    </p>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:var(--green-pale);border-radius:8px;padding:14px;display:flex;gap:12px;">
+        <div style="background:var(--green);color:white;border-radius:6px;padding:4px 10px;font-weight:700;font-size:13px;white-space:nowrap;height:fit-content;">Weeks 1–4</div>
+        <div style="font-size:13px;color:#444;line-height:1.7;"><strong>Light walking only.</strong> 20–30 minutes per day at a comfortable pace. Focus 100% of your mental energy on nailing the food protocol. The diet is doing all the heavy lifting right now.</div>
+      </div>
+      <div style="background:var(--green-pale);border-radius:8px;padding:14px;display:flex;gap:12px;">
+        <div style="background:var(--green);color:white;border-radius:6px;padding:4px 10px;font-weight:700;font-size:13px;white-space:nowrap;height:fit-content;">Weeks 5–8</div>
+        <div style="font-size:13px;color:#444;line-height:1.7;"><strong>Add light resistance training 2x/week.</strong> Machines or bodyweight — focus on legs, back, chest. After 40, we lose muscle mass at an accelerating rate (sarcopenia). The more muscle you preserve, the higher your resting metabolism stays — which means faster, lasting fat loss.</div>
+      </div>
+      <div style="background:var(--green-pale);border-radius:8px;padding:14px;display:flex;gap:12px;">
+        <div style="background:var(--green);color:white;border-radius:6px;padding:4px 10px;font-weight:700;font-size:13px;white-space:nowrap;height:fit-content;">Week 9+</div>
+        <div style="font-size:13px;color:#444;line-height:1.7;"><strong>Increase activity as energy improves.</strong> Aim for 150 minutes/week of moderate activity. Your energy will be dramatically better by this point — you'll want to move more. Let that happen naturally.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLATEAUS -->
+  <div class="card" id="prog-plateaus">
+    <div class="card-title">📉 Dealing With Plateaus</div>
+    <p style="font-size:14px;color:#444;line-height:1.7;margin-bottom:12px;">
+      A plateau is defined as <strong>no movement for 2 full weeks.</strong> One week of no loss is NOT a plateau — it's normal fluctuation. Before troubleshooting anything, wait the full two weeks.
+    </p>
+    <p style="font-size:14px;color:#444;line-height:1.7;margin-bottom:16px;">
+      When you hit a genuine plateau, the Awaken 180° coaches always start with the same checklist — because hidden protocol breaks are the cause 95% of the time:
+    </p>
+
+    <div style="background:var(--gold-pale);border-radius:10px;padding:16px;">
+      <div style="font-weight:700;color:var(--gold);margin-bottom:10px;">The Plateau Audit — Go Through This First</div>
+      <ol style="font-size:13px;color:#555;line-height:2;padding-left:16px;">
+        <li>Are you eating <strong>all 5 meals</strong> every day? Even one skipped meal triggers cortisol and stalls fat loss.</li>
+        <li>Are any <strong>condiments, sauces, or dressings</strong> sneaking in sugars? Check every label again.</li>
+        <li>Are you hitting your <strong>water goal</strong> daily? Dehydration stalls ketosis.</li>
+        <li>Have you had any <strong>alcohol</strong> — even a single drink? One drink can stall for 3–5 days.</li>
+        <li>Are any <strong>hidden carbs</strong> in your protein bars or seasonings? Recheck the products you're using.</li>
+        <li>Are you <strong>over-exercising</strong>? Intense workouts increase cortisol and can temporarily stall the scale.</li>
+        <li>Are you <strong>under-sleeping</strong>? Poor sleep elevates cortisol and directly impacts fat metabolism.</li>
+      </ol>
+      <p style="font-size:13px;color:#555;margin-top:10px;">If you've checked all of the above and are still stalled, go back to absolute basics for 3 days — shakes only for meals 1, 2, 4, 5, and one clean protein + vegetables for meal 3. This resets the metabolism almost every time.</p>
+    </div>
+  </div>
+
+  <!-- MAINTENANCE -->
+  <div class="card" id="prog-maintenance">
+    <div class="card-title">🏆 Phase 2 — Maintenance Plan</div>
+    <p style="font-size:14px;color:#444;line-height:1.7;margin-bottom:16px;">
+      Once you reach your goal, the Awaken 180° program transitions you into a structured maintenance phase. This is where most commercial programs fail their clients — they end the plan and people regain. Awaken 180° is different because maintenance is built into the program from day one. Here's how your Phase 2 works:
+    </p>
+
+    <table class="food-table">
+      <thead><tr><th>Step</th><th>What to Do</th><th>Timeline</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Celebrate</strong></td>
+          <td>Acknowledge what you've accomplished. This is a major health achievement.</td>
+          <td>Goal reached</td>
+        </tr>
+        <tr>
+          <td><strong>2. Add complex carbs</strong></td>
+          <td>Introduce ONE serving of complex carbs per day: sweet potato, brown rice, oats, or quinoa. Only at Meal 3 (lunch).</td>
+          <td>Week 1 of Phase 2</td>
+        </tr>
+        <tr>
+          <td><strong>3. Monitor the scale</strong></td>
+          <td>Weigh in Monday mornings. If you gain more than 5 lbs, return to Phase 1 protocol until you're back at goal.</td>
+          <td>Ongoing, weekly</td>
+        </tr>
+        <tr>
+          <td><strong>4. Add dairy (optional)</strong></td>
+          <td>If tolerated, reintroduce Greek yogurt (plain, no sugar) or small amounts of cheese. Watch for cravings or weight response.</td>
+          <td>Week 3–4 of Phase 2</td>
+        </tr>
+        <tr>
+          <td><strong>5. Maintain protein-first</strong></td>
+          <td>Always build your meals around protein. This habit is permanent — it's the foundation that keeps the weight off.</td>
+          <td>Forever</td>
+        </tr>
+        <tr>
+          <td><strong>6. Keep the check-in</strong></td>
+          <td>Monthly instead of weekly — but don't skip it. The accountability loop is what prevents slow drift back.</td>
+          <td>Monthly, ongoing</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
 
 <!-- ══════════════════════════════════════════════
