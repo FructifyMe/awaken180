@@ -299,11 +299,15 @@
 <div id="tab-tracker" class="tab">
   <div class="page-header">
     <h1>Daily Tracker</h1>
-    <p id="tracker-date"></p>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:4px;">
+      <button class="btn btn-secondary btn-sm" onclick="changeTrackerDate(-1)">← Prev</button>
+      <p id="tracker-date" style="margin:0;flex:1;text-align:center;font-weight:600;font-size:15px;"></p>
+      <button class="btn btn-secondary btn-sm" onclick="changeTrackerDate(1)" id="tracker-next-btn">Next →</button>
+    </div>
   </div>
 
   <div class="card">
-    <div class="card-title">Today's 5 Meals</div>
+    <div class="card-title" id="meals-card-title">Today's 5 Meals</div>
     <div id="meal-list"></div>
     <div style="margin-top:16px;">
       <button class="btn btn-primary btn-sm" onclick="saveMeals()">Save Meals</button>
@@ -1676,7 +1680,7 @@ function showTab(tab) {
     }
   });
   if (tab === 'dashboard') refreshDashboard();
-  if (tab === 'tracker') initTracker();
+  if (tab === 'tracker') { trackerDate = new Date(); initTracker(); }
   if (tab === 'weekly') renderWeeklyLog();
   if (tab === 'foodguide') renderFoodTable();
   if (tab === 'recipes') renderRecipes();
@@ -1814,10 +1818,46 @@ const MEALS_DEF = [
   { name: 'Meal 5 — Dinner', time: '~7–8 PM', desc: '6–8 oz lean protein + 2 cups non-starchy vegetables' },
 ];
 
+// Active date for the daily tracker (defaults to today, can navigate to past days)
+let trackerDate = new Date();
+
+function trackerKey() {
+  return trackerDate.toISOString().split('T')[0];
+}
+
+function changeTrackerDate(delta) {
+  const newDate = new Date(trackerDate);
+  newDate.setDate(newDate.getDate() + delta);
+  // Don't go into the future
+  const today = new Date();
+  today.setHours(23,59,59,999);
+  if (newDate > today) return;
+  trackerDate = newDate;
+  initTracker();
+}
+
 function initTracker() {
-  const now = new Date();
-  document.getElementById('tracker-date').textContent = now.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'});
-  const data = S.get('daily_' + todayKey(), { meals: [false,false,false,false,false], water: 0 });
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const activeDay = new Date(trackerDate);
+  activeDay.setHours(0,0,0,0);
+  const isToday = activeDay.getTime() === today.getTime();
+
+  // Update date display
+  const dateLabel = isToday
+    ? 'Today — ' + trackerDate.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'})
+    : trackerDate.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'});
+  document.getElementById('tracker-date').textContent = dateLabel;
+
+  // Update meals card title
+  const mealsTitle = document.getElementById('meals-card-title');
+  if (mealsTitle) mealsTitle.textContent = isToday ? "Today's 5 Meals" : trackerDate.toLocaleDateString('en-US', {weekday:'long'}) + "'s 5 Meals";
+
+  // Disable Next button when on today
+  const nextBtn = document.getElementById('tracker-next-btn');
+  if (nextBtn) nextBtn.disabled = isToday;
+
+  const data = S.get('daily_' + trackerKey(), { meals: [false,false,false,false,false], water: 0 });
 
   // Meals
   const list = document.getElementById('meal-list');
@@ -1838,7 +1878,7 @@ function initTracker() {
   updateWaterCount(data.water);
 
   // Notes
-  const notes = S.get('daily_notes_' + todayKey(), '');
+  const notes = S.get('daily_notes_' + trackerKey(), '');
   document.getElementById('daily-notes').value = notes;
 }
 
@@ -1849,17 +1889,17 @@ function updateMealRow(i) {
 }
 
 function saveMeals() {
-  const data = S.get('daily_' + todayKey(), { meals: [false,false,false,false,false], water: 0 });
+  const data = S.get('daily_' + trackerKey(), { meals: [false,false,false,false,false], water: 0 });
   data.meals = Array.from({length:5}, (_,i) => document.getElementById('meal-'+i)?.checked || false);
-  S.set('daily_' + todayKey(), data);
+  S.set('daily_' + trackerKey(), data);
   const el = document.getElementById('meals-saved');
   el.style.display = 'inline'; setTimeout(() => el.style.display = 'none', 2000);
 }
 
 function toggleGlass(i) {
-  const data = S.get('daily_' + todayKey(), { meals: [false,false,false,false,false], water: 0 });
+  const data = S.get('daily_' + trackerKey(), { meals: [false,false,false,false,false], water: 0 });
   data.water = (data.water === i+1) ? i : i+1;
-  S.set('daily_' + todayKey(), data);
+  S.set('daily_' + trackerKey(), data);
   const glasses = document.querySelectorAll('.glass');
   glasses.forEach((g, idx) => g.classList.toggle('filled', idx < data.water));
   updateWaterCount(data.water);
@@ -1870,7 +1910,7 @@ function updateWaterCount(n) {
 }
 
 function saveNotes() {
-  S.set('daily_notes_' + todayKey(), document.getElementById('daily-notes').value);
+  S.set('daily_notes_' + trackerKey(), document.getElementById('daily-notes').value);
   const el = document.getElementById('notes-saved');
   el.style.display = 'inline'; setTimeout(() => el.style.display = 'none', 2000);
 }
